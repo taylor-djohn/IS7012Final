@@ -1,0 +1,14 @@
+﻿@page
+@model IS7012Final.Pages.MoviePages.PopularModel
+
+@foreach (var movie in Model.Movie)
+{
+    <div class="movie-card">
+        <img src="@movie.Poster" class="poster" />
+        <h2>@movie.Title</h2>
+        <p>@string.Join(", ", movie.Genres)</p>
+        <p>@movie.Release_Date</p>
+        <p>⭐ @movie.Rating</p>
+        <p>@movie.Overview</p>
+    </div>
+}
