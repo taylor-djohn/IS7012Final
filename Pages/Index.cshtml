@@ -1,10 +1,59 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Movie Social";
 }
+<style>
+    .text-center {
+        text-align: justify;
+    }
+    .center-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .form-row {
+        margin-bottom: 12px;
+    }
+    .form-row label {
+        display: inline-block;
+        width: 120px;
+    }
+    .form-row input{
+        width: 250px;
+    }
+    ul {
+        text-align: left;
+    }
+</style>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="text-center">MOVIE SOCIAL</h1>
+
+<p class="text-center">
+    Welcome back! Discover what people are watching.
+</p>
+<hr />
+
+<h3 class="text-center">Trending Movies</h3>
+<div class="row">
+    <div class="col-md-4">
+        <img src="https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg" alt="Movie 1" class="center-image" width="290" height="400" />
+        <p class="text-center">Movie 1</p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg" alt="Movie 2" class="center-image" width="290" height="400" />
+        <p class="text-center">Movie 2</p>
+    </div>
+    <div class="col-md-4">
+        <img src="https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg" alt="Movie 3" class="center-image" width="290" height="400" />
+        <p class="text-center">Movie 3</p>
+    </div>
 </div>
+<hr />
+
+<h3 class="text-center">Recent Activity</h3>
+<hr />
+
+<h3 class="text-center">Top Rated Movies</h3>
+
+
