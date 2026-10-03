@@ -1,12 +1,32 @@
 ﻿@page
 @model IS7012Final.Pages.MoviePages.PopularModel
+<style>
+    .movie-card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        width: 350px;
+    }
 
+    .poster {
+        width: 100%;
+        height: auto;
+    }
+
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+</style>
+<div class="movie-grid">
 @if (Model.Movie != null)
 {
     foreach (var movie in Model.Movie)
     {
         <div class="movie-card">
-            <img src="@movie.Poster" class="poster" />
+            <img src="@movie.Poster" class="poster" alt="@movie.Title poster"/>
             <h2>@movie.Title</h2>
             <p>@string.Join(", ", movie.Genres ?? new List<string>())</p>
             <p>@movie.Release_Date</p>
@@ -19,3 +39,4 @@ else
 {
     <p>No movies available.</p>
 }
+</div>

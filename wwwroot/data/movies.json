@@ -4,7 +4,7 @@
     "title": "Avatar",
     "overview": "A paraplegic Marine dispatched to the moon Pandora...",
     "genres": [ "Action", "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/6EiRUJpuoeQPghrs3YNktfnqOVh.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/gKY6q7SjCkAU6FqvqWybDYgUKIF.jpg",
     "release_date": "2009-12-10",
     "rating": 7.2,
     "popularity": 150.437577
@@ -14,7 +14,7 @@
     "title": "Star Wars: The Force Awakens",
     "overview": "Thirty years after defeating the Galactic Empire...",
     "genres": [ "Action", "Adventure", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/weUSwMdQIa3NaXVzwUoIIcAi85d.jpg",
+    "poster": "https://www.themoviedb.org/t/p/w1280/wqnLdwVXoBjKibFRR5U3y0aDUhs.jpg",
     "release_date": "2015-12-15",
     "rating": 7.5,
     "popularity": 123.726692
@@ -24,7 +24,7 @@
     "title": "Jurassic World",
     "overview": "Twenty-two years after the events of Jurassic Park...",
     "genres": [ "Action", "Adventure", "Science Fiction", "Thriller" ],
-    "poster": "https://image.tmdb.org/t/p/w500/tnmL0g604PDRJwGJ5fsUSYKFo9.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/rhr4y79GpxQF9IsfJItRXVaoGs4.jpg",
     "release_date": "2015-06-09",
     "rating": 6.6,
     "popularity": 96.793073
@@ -34,27 +34,17 @@
     "title": "Avengers: Age of Ultron",
     "overview": "When Tony Stark tries to jumpstart a peacekeeping program...",
     "genres": [ "Action", "Adventure", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
     "release_date": "2015-04-22",
     "rating": 7.3,
     "popularity": 90.646385
-  },
-  {
-    "id": 767,
-    "title": "Harry Potter and the Half-Blood Prince",
-    "overview": "As Harry begins his sixth year at Hogwarts...",
-    "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
-    "release_date": "2009-07-07",
-    "rating": 7.7,
-    "popularity": 82.582297
   },
   {
     "id": 209112,
     "title": "Batman v Superman: Dawn of Justice",
     "overview": "Fearing the actions of Superman, Batman takes on the Man of Steel...",
     "genres": [ "Action", "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/5UsK3grJvtQrtzEgqNlDljJW96w.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/5UsK3grJvtQrtzEgqNlDljJW96w.jpg",
     "release_date": "2016-03-23",
     "rating": 5.8,
     "popularity": 81.563788
@@ -64,7 +54,7 @@
     "title": "The Martian",
     "overview": "An astronaut becomes stranded on Mars...",
     "genres": [ "Drama", "Adventure", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/5BHuvQ6p9kfc091Z8RiFNhCwL4b.jpg",
     "release_date": "2015-09-30",
     "rating": 7.7,
     "popularity": 80.92345
@@ -74,7 +64,7 @@
     "title": "Captain America: Civil War",
     "overview": "Political pressure mounts to install a system of accountability...",
     "genres": [ "Adventure", "Action", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/kSBXou5Ac7vEqKd3n3yH2tnGg2Q.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",
     "release_date": "2016-04-27",
     "rating": 7.4,
     "popularity": 78.45321
@@ -84,7 +74,7 @@
     "title": "Deadpool",
     "overview": "A former Special Forces operative becomes the mercenary Deadpool...",
     "genres": [ "Action", "Adventure", "Comedy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/inVq3FRqcYIRl2la8iZikYYxFNR.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/3E53WEZJqP6aM84D8CckXx4pIHw.jpg",
     "release_date": "2016-02-09",
     "rating": 7.6,
     "popularity": 77.12345
@@ -94,7 +84,7 @@
     "title": "The Lord of the Rings: The Fellowship of the Ring",
     "overview": "A meek Hobbit sets out on a journey to destroy the One Ring...",
     "genres": [ "Adventure", "Fantasy", "Action" ],
-    "poster": "https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
     "release_date": "2001-12-18",
     "rating": 8.3,
     "popularity": 75.23456
@@ -104,7 +94,7 @@
     "title": "The Lord of the Rings: The Two Towers",
     "overview": "Frodo and Sam continue their journey to Mordor...",
     "genres": [ "Adventure", "Fantasy", "Action" ],
-    "poster": "https://image.tmdb.org/t/p/w500/5VTN0pR8gcqV3EPUHHfMGNJUq9.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
     "release_date": "2002-12-18",
     "rating": 8.3,
     "popularity": 74.98765
@@ -114,7 +104,7 @@
     "title": "The Lord of the Rings: The Return of the King",
     "overview": "The final confrontation between the forces of good and evil...",
     "genres": [ "Adventure", "Fantasy", "Action" ],
-    "poster": "https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
     "release_date": "2003-12-01",
     "rating": 8.4,
     "popularity": 74.54321
@@ -124,27 +114,17 @@
     "title": "The Avengers",
     "overview": "Earth's mightiest heroes must come together...",
     "genres": [ "Science Fiction", "Action", "Adventure" ],
-    "poster": "https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
     "release_date": "2012-04-25",
     "rating": 7.7,
     "popularity": 73.87654
-  },
-  {
-    "id": 99861,
-    "title": "Avengers: Age of Ultron",
-    "overview": "Tony Stark creates Ultron, but things go wrong...",
-    "genres": [ "Action", "Adventure", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
-    "release_date": "2015-04-22",
-    "rating": 7.3,
-    "popularity": 73.54321
   },
   {
     "id": 299536,
     "title": "Avengers: Infinity War",
     "overview": "The Avengers face their greatest threat yet...",
     "genres": [ "Adventure", "Action", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
     "release_date": "2018-04-25",
     "rating": 8.3,
     "popularity": 72.98765
@@ -154,7 +134,7 @@
     "title": "Avengers: Endgame",
     "overview": "The remaining Avengers assemble once more...",
     "genres": [ "Adventure", "Action", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
     "release_date": "2019-04-24",
     "rating": 8.4,
     "popularity": 72.54321
@@ -164,7 +144,7 @@
     "title": "Forrest Gump",
     "overview": "A man with a low IQ lives an extraordinary life...",
     "genres": [ "Comedy", "Drama", "Romance" ],
-    "poster": "https://image.tmdb.org/t/p/w500/saHP97rTPS5eLmrLQEcANmKrsFl.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/Cw4hIUIAmSYfK9QfaUW5igp9La.jpg",
     "release_date": "1994-07-06",
     "rating": 8.5,
     "popularity": 71.87654
@@ -174,7 +154,7 @@
     "title": "Batman Begins",
     "overview": "Bruce Wayne becomes Batman to fight crime in Gotham...",
     "genres": [ "Action", "Crime", "Drama" ],
-    "poster": "https://image.tmdb.org/t/p/w500/1P3ZyEq02wcTMd3iE4ebtLvncvH.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/sPX89Td70IDDjVr85jdSBb4rWGr.jpg",
     "release_date": "2005-06-10",
     "rating": 7.7,
     "popularity": 71.54321
@@ -184,7 +164,7 @@
     "title": "The Dark Knight",
     "overview": "Batman faces the Joker, a criminal mastermind...",
     "genres": [ "Drama", "Action", "Crime" ],
-    "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
     "release_date": "2008-07-16",
     "rating": 8.5,
     "popularity": 71.23456
@@ -194,7 +174,7 @@
     "title": "The Dark Knight Rises",
     "overview": "Batman returns to face Bane...",
     "genres": [ "Action", "Crime", "Drama" ],
-    "poster": "https://image.tmdb.org/t/p/w500/3bgtUfKQKNi3nJsAB5URpP2wdRt.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/hr0L2aueqlP2BYUblTTjmtn0hw4.jpg",
     "release_date": "2012-07-16",
     "rating": 7.8,
     "popularity": 70.98765
@@ -204,7 +184,7 @@
     "title": "The Hobbit: The Battle of the Five Armies",
     "overview": "Bilbo and the dwarves face a deadly battle...",
     "genres": [ "Action", "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/9zRz8zAwfNq1l1lOZ1tLQXz8z1.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/xT98tLqatZPQApyRmlPL12LtiWp.jpg",
     "release_date": "2014-12-10",
     "rating": 7.3,
     "popularity": 70.54321
@@ -214,7 +194,7 @@
     "title": "The Hobbit: An Unexpected Journey",
     "overview": "Bilbo joins a group of dwarves on a quest...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/ysX7vDmShzFjIh8eG8v3E8V6v1.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/yHA9Fc37VmpUA5UncTxxo3rTGVA.jpg",
     "release_date": "2012-11-26",
     "rating": 7.3,
     "popularity": 70.23456
@@ -224,7 +204,7 @@
     "title": "Harry Potter and the Philosopher's Stone",
     "overview": "Harry discovers he is a wizard...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/h7YgZ7Z2qxdjQbaO5SpM90oCbGy.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
     "release_date": "2001-11-16",
     "rating": 7.6,
     "popularity": 69.98765
@@ -234,17 +214,27 @@
     "title": "Harry Potter and the Chamber of Secrets",
     "overview": "Harry returns to Hogwarts for his second year...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
     "release_date": "2002-11-13",
     "rating": 7.4,
     "popularity": 69.54321
+  },
+  {
+    "id": 673,
+    "title": "Harry Potter and the Prisoner of Azkaban",
+    "overview": "Harry learns more about his past...",
+    "genres": [ "Adventure", "Fantasy" ],
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/aWxwnYoe8p2d2fcxOqtvAtJ72Rw.jpg",
+    "release_date": "2004-06-04",
+    "rating": 7.8,
+    "popularity": 69.87654
   },
   {
     "id": 674,
     "title": "Harry Potter and the Goblet of Fire",
     "overview": "Harry competes in the Triwizard Tournament...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/6sASqcdrEHXxUhA3nFpjrRecPD2.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
     "release_date": "2005-11-16",
     "rating": 7.7,
     "popularity": 69.23456
@@ -254,7 +244,7 @@
     "title": "Harry Potter and the Order of the Phoenix",
     "overview": "Harry forms Dumbledore's Army...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w188_and_h282_face/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
     "release_date": "2007-07-08",
     "rating": 7.5,
     "popularity": 68.98765
@@ -264,7 +254,7 @@
     "title": "Harry Potter and the Half-Blood Prince",
     "overview": "Harry learns more about Voldemort's past...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
     "release_date": "2009-07-07",
     "rating": 7.7,
     "popularity": 68.54321
@@ -274,7 +264,7 @@
     "title": "Harry Potter and the Deathly Hallows: Part 1",
     "overview": "Harry, Ron, and Hermione go on the run...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/iGoXIpQb7Pot00E3NfYxq7Gm8x.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/iGoXIpQb7Pot00EEdwpwPajheZ5.jpg",
     "release_date": "2010-11-17",
     "rating": 7.7,
     "popularity": 68.23456
@@ -284,7 +274,7 @@
     "title": "Harry Potter and the Deathly Hallows: Part 2",
     "overview": "The final battle for Hogwarts begins...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/maP4MTfPCeVD2FZbKTLUgriOW4R.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/c54HpQmuwXjHq2C9wmoACjxoom3.jpg",
     "release_date": "2011-07-07",
     "rating": 8.1,
     "popularity": 67.98765
@@ -294,7 +284,7 @@
     "title": "The Matrix",
     "overview": "A hacker discovers the truth about reality...",
     "genres": [ "Action", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
     "release_date": "1999-03-30",
     "rating": 8.1,
     "popularity": 67.54321
@@ -304,7 +294,7 @@
     "title": "The Matrix Reloaded",
     "overview": "Neo continues his fight against the machines...",
     "genres": [ "Action", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/9TGHDvWrqKBzwDxDodHYXEmOE6J.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/8xEVAe84zlL9rkfYT6dZXero4KK.jpg",
     "release_date": "2003-05-15",
     "rating": 7.0,
     "popularity": 67.23456
@@ -314,7 +304,7 @@
     "title": "The Matrix Revolutions",
     "overview": "The war between humans and machines reaches its climax...",
     "genres": [ "Action", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/fgm8OZ7o2R5xJhJtV0VqvOZQh1.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/qEWiBXJGXK28jGBAm8oFKKTB0WD.jpg",
     "release_date": "2003-11-05",
     "rating": 6.7,
     "popularity": 66.98765
@@ -324,7 +314,7 @@
     "title": "Interstellar",
     "overview": "A team travels through a wormhole in search of a new home...",
     "genres": [ "Adventure", "Drama", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/rAiYTfKGq",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/yQvGrMoipbRoddT0ZR8tPoR7NfX.jpg",
     "release_date": "2014-11-05",
 
     "rating": 8.6,

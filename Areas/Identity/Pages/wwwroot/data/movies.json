@@ -4,7 +4,7 @@
     "title": "Avatar",
     "overview": "A paraplegic Marine dispatched to the moon Pandora...",
     "genres": [ "Action", "Adventure", "Fantasy" ],
-    "poster": "https://image.tmdb.org/t/p/w500/6EiRUJpuoeQPghrs3YNktfnqOVh.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/gKY6q7SjCkAU6FqvqWybDYgUKIF.jpg",
     "release_date": "2009-12-10",
     "rating": 7.2,
     "popularity": 150.437577
@@ -14,7 +14,7 @@
     "title": "Star Wars: The Force Awakens",
     "overview": "Thirty years after defeating the Galactic Empire...",
     "genres": [ "Action", "Adventure", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/weUSwMdQIa3NaXVzwUoIIcAi85d.jpg",
+    "poster": "https://www.themoviedb.org/t/p/w1280/wqnLdwVXoBjKibFRR5U3y0aDUhs.jpg",
     "release_date": "2015-12-15",
     "rating": 7.5,
     "popularity": 123.726692
@@ -24,7 +24,7 @@
     "title": "Jurassic World",
     "overview": "Twenty-two years after the events of Jurassic Park...",
     "genres": [ "Action", "Adventure", "Science Fiction", "Thriller" ],
-    "poster": "https://image.tmdb.org/t/p/w500/tnmL0g604PDRJwGJ5fsUSYKFo9.jpg",
+    "poster": "https://m.media-amazon.com/images/M/MV5BNzBhNzlkM2UtZTQyOC00NjUyLTkzMmMtNDQ1YTM5N2NmMGE5XkEyXkFqcGc@._V1_.jpg",
     "release_date": "2015-06-09",
     "rating": 6.6,
     "popularity": 96.793073
@@ -324,7 +324,7 @@
     "title": "Interstellar",
     "overview": "A team travels through a wormhole in search of a new home...",
     "genres": [ "Adventure", "Drama", "Science Fiction" ],
-    "poster": "https://image.tmdb.org/t/p/w500/rAiYTfKGq",
+    "poster": "https://www.themoviedb.org/t/p/w1280/yQvGrMoipbRoddT0ZR8tPoR7NfX.jpg",
     "release_date": "2014-11-05",
 
     "rating": 8.6,
