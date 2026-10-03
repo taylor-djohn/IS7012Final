@@ -43,6 +43,11 @@ public class EditModel : PageModel
             return Page();
         }
 
+        if (Movie is null)
+        {
+            return NotFound();
+        }
+
         _context.Attach(Movie).State = EntityState.Modified;
 
         try
