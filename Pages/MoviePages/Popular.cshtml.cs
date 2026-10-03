@@ -12,7 +12,11 @@ public class PopularModel : PageModel
     public void OnGet()
     {
         var json = System.IO.File.ReadAllText("wwwroot/data/movies.json");
-        Movie = JsonSerializer.Deserialize<List<Movie>>(json);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        Movie = JsonSerializer.Deserialize<List<Movie>>(json, options);
     }
 }
 
