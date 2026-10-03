@@ -16,7 +16,7 @@ public class EditModel : PageModel
     }
 
     [BindProperty]
-        public IS7012Final.Model.Movie Movie { get; set; }
+        public IS7012Final.Model.Movie? Movie { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {

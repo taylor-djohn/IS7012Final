@@ -6,7 +6,7 @@
     <div class="movie-card">
         <img src="@movie.Poster" class="poster" />
         <h2>@movie.Title</h2>
-        <p>@string.Join(", ", movie.Genres)</p>
+        <p>@string.Join(", ", movie.Genres ?? new List<string>())</p>
         <p>@movie.Release_Date</p>
         <p>⭐ @movie.Rating</p>
         <p>@movie.Overview</p>
