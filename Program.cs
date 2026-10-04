@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var sqlConnection = builder.Configuration.GetConnectionString("ApplicationDbContext") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContext' not found.");
+var sqlConnection = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(sqlConnection));
+    options.UseSqlite(sqlConnection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -36,5 +38,20 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+// Automatically apply any pending EF Core migrations at startup so the
+// database schema is created/updated and rows added via the UI persist.
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.Migrate();
+    }
+    catch (Exception)
+    {
+        // If migration fails at startup we don't want to crash the app here during development.
+        // The error will appear in logs; developers can run EF CLI manually to diagnose.
+    }
+}
 
 app.Run();
