@@ -43,6 +43,22 @@
             @Html.DisplayFor(model => model.Movie.Genres)
         </dd>
     </dl>
+    @if (Model.IsInWatchlist)
+    {
+        <p>This movie is already in your watchlist.</p>
+    }
+    else
+    {
+        <form method="post"
+        asp-page-handler="AddToWatchlist"
+        asp-route-id="@Model.Movie.Id">
+
+            <button type="submit" class="btn btn-primary">
+                Add to Watchlist
+            </button>
+
+        </form>
+    }
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Movie.Id">Edit</a> |

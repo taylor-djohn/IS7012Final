@@ -1,0 +1,67 @@
+@page
+@model IS7012Final.Pages.ReviewPages.IndexModel
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h1>Movie Reviews</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Write a Review</a>
+</p>
+
+@if (Model.Review.Count == 0)
+{
+    <div class="alert alert-info">
+        No reviews have been posted yet.
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <th>Date Posted</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Review)
+            {
+                <tr>
+                    <td>
+                        @item.Movie?.Title
+                    </td>
+
+                    <td>
+                        @item.Rating / 5
+                    </td>
+
+                    <td>
+                        @item.ReviewText
+                    </td>
+
+                    <td>
+                        @item.Timestamp.ToString("MM/dd/yyyy")
+                    </td>
+
+                    <td>
+                        <a asp-page="./Edit"
+                           asp-route-id="@item.Id">Edit</a>
+                        |
+                        <a asp-page="./Details"
+                           asp-route-id="@item.Id">Details</a>
+                        |
+                        <a asp-page="./Delete"
+                           asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
