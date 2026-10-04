@@ -24,6 +24,37 @@
             </div>
 
             <!-- Email -->
+            <!-- First Name -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FirstName"
+                       class="form-control"
+                       autocomplete="given-name"
+                       aria-required="true"
+                       placeholder="First name" />
+
+                <label asp-for="Input.FirstName">First name</label>
+
+                <span asp-validation-for="Input.FirstName"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.LastName"
+                       class="form-control"
+                       autocomplete="family-name"
+                       aria-required="true"
+                       placeholder="Last name" />
+
+                <label asp-for="Input.LastName">Last name</label>
+
+                <span asp-validation-for="Input.LastName"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <!-- Email -->
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email"
                        class="form-control"
