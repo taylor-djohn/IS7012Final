@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IS7012Final.Model
 {
@@ -12,6 +14,7 @@ namespace IS7012Final.Model
         [Display(Name = "Review")]
         public string? ReviewText { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
+        // Navigation property to the related Movie
         public Movie? Movie { get; set; }
     }
 }

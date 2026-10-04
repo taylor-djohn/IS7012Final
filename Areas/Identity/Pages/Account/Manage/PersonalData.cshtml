@@ -1,0 +1,24 @@
+@page
+@model IS7012Final.Areas.Identity.Pages.Account.Manage.PersonalDataModel
+@{
+    ViewData["Title"] = "Personal data";
+}
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+    }
+</style>
+<h1>Personal data</h1>
+
+<div>
+    <p><strong>Username:</strong> @Model.CurrentUser?.UserName</p>
+    <p><strong>Email:</strong> @Model.CurrentUser?.Email</p>
+    <p><strong>Phone:</strong> @Model.CurrentUser?.PhoneNumber</p>
+    <p><strong>First name:</strong> @Model.CurrentUser?.FirstName</p>
+    <p><strong>Last name:</strong> @Model.CurrentUser?.LastName</p>
+</div>
+
+<form method="post" asp-page-handler="Download">
+    <button type="submit" class="btn btn-primary">Download personal data</button>
+    <a asp-page="./Index" class="btn btn-link">Back</a>
+</form>
