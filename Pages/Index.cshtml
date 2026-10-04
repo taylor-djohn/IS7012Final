@@ -1,5 +1,7 @@
 ﻿@page
 @model IndexModel
+@using IS7012Final.Model
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Movie Social";
     // 1. Fake Trending Movies Data
@@ -25,6 +27,8 @@
         new { User = "Alex", Action = "liked a review for", Movie = "The Dark Knight", Rating = 5, Comment = "Best superhero movie ever made.", Likes = 34 },
         new { User = "Jordan", Action = "reviewed", Movie = "Avatar", Rating = 4, Comment = "Great visual effects, classic story.", Likes = 8 }
     };
+
+    var appUser = await UserManager.GetUserAsync(User);
 }
 
 <style>
@@ -96,7 +100,7 @@
 </style>
 
 <h1 class="text-center">&#127916; MOVIE SOCIAL</h1>
-<p class="text-center">Welcome back! Discover what people are watching.</p>
+<p class="text-center">Welcome back @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)! Discover what people are watching.</p>
 
 <!-- 🔥 Trending Movies Section -->
 <h3 class="text-center">🔥 Trending Movies</h3>

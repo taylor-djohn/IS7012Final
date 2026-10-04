@@ -12,7 +12,7 @@
                asp-area="Identity"
                asp-page="/Account/Manage/Index"
                title="Manage">
-                Hi, @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)
+                Hi, @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)! 
             </a>
         </li>
 
