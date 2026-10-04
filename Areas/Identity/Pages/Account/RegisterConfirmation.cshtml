@@ -1,0 +1,22 @@
+@page
+@model IS7012Final.Areas.Identity.Pages.Account.RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Registration confirmation";
+}
+
+<h1>Registration successful</h1>
+
+<p>Thanks for registering. A confirmation email has been sent to <strong>@Model.Email</strong>. Please check your email and follow the confirmation link to activate your account.</p>
+
+@if (!string.IsNullOrEmpty(Model.ConfirmationLink))
+{
+    <div class="alert alert-info">
+        <p>Development: confirmation link (copy/paste into browser):</p>
+        <pre>@Model.ConfirmationLink</pre>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ReturnUrl))
+{
+    <p><a asp-page="@Model.ReturnUrl">Continue</a></p>
+}
