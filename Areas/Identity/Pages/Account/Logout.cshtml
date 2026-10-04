@@ -1,0 +1,11 @@
+@page
+@model IS7012Final.Areas.Identity.Pages.Account.LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<h1>Log out</h1>
+
+<form method="post" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+    <button type="submit" class="btn btn-primary">Log out</button>
+</form>

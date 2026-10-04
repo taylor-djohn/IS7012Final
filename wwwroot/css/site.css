@@ -9,7 +9,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #ffffff;
 }
 
 html {
@@ -19,4 +19,6 @@ html {
 
 body {
   margin-bottom: 60px;
+  color: #a7a8a7;
+  font-family: "Courier New", Courier, monospace;
 }
