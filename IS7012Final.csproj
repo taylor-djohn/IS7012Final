@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Pages\Pages\MoviePages\" />
     <Folder Include="Areas\Identity\Pages\Properties\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

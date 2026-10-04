@@ -1,0 +1,77 @@
+@page
+@model IS7012Final.Pages.GenrePages.GenreListModel
+
+@{
+    ViewData["Title"] = "Genres";
+    var genres = Model.Genre?.ToList() ?? new List<IS7012Final.Model.Genre>();
+    var genresToDisplay = Model.GenreId.HasValue
+        ? genres.Where(g => g.Id == Model.GenreId.Value).ToList()
+        : genres;
+}
+<style>
+/* Styles (kept from original) */
+.genre-page { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+.genre-header { text-align: center; margin-bottom: 35px; }
+.genre-header h1 { font-size: 2.5em; margin-bottom: 10px; }
+.genre-header p { font-size: 1.2em; color: #888; }
+.genre-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 50px; }
+.genre-button { background-color: #171616; color: #ffffff; border: 2px solid #ffffff; padding: 10px 20px; font-size: 1em; text-decoration: none; transition: all 0.3s ease; }
+.genre-button:hover { background-color: #ffffff; color: #171616; }
+.genre-button.active { background-color: #ffffff; color: #171616; }
+.genre-section { margin-bottom: 60px; }
+.genre-section h2 { font-size: 2em; margin-bottom: 20px; }
+.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.movie-card { background-color: #171616; color: #ffffff; border: 1px solid #ffffff; padding: 15px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.movie-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); }
+.poster { width: 100%; height: auto; margin-bottom: 10px; }
+.movie-card h3 { font-size: 1.5em; margin-bottom: 10px; }
+.movie-card p { font-size: 0.9em; margin-bottom: 5px; }
+</style>
+
+<div class="genre-page">
+    <div class="genre-header">
+        <h1>Explore Genres</h1>
+        <p>Discover movies by your favorite genres.</p>
+    </div>
+
+    <div class="genre-buttons">
+        <a class="genre-button@(Model.GenreId.HasValue ? "" : " active")" asp-page="/GenrePages/GenreList">All Genres</a>
+        @foreach (var g in genres)
+        {
+            var isActive = Model.GenreId.HasValue && Model.GenreId.Value == g.Id;
+            <a class="genre-button@(isActive ? " active" : "")" asp-page="/GenrePages/GenreList" asp-route-genreId="@g.Id">@g.Name</a>
+        }
+    </div>
+
+    @foreach (var currentGenre in genresToDisplay)
+    {
+        var movies = Model.MoviesByGenre != null && Model.MoviesByGenre.TryGetValue(currentGenre.Id, out var jm)
+            ? jm
+            : new List<IS7012Final.Pages.GenrePages.JsonMovie>();
+
+        <section class="genre-section" id="@currentGenre.Name?.Replace(" ", "-")">
+            <h2>@currentGenre.Name</h2>
+
+            @if (movies.Any())
+            {
+                <div class="movie-grid">
+                    @foreach (var movie in movies)
+                    {
+                        <div class="movie-card">
+                            <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                            <h2>@movie.Title</h2>
+                            <p>@string.Join(", ", movie.Genres ?? new List<string>())</p>
+                            <p>@movie.Release_Date</p>
+                            <p>⭐ @movie.Rating</p>
+                            <p>@movie.Overview</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No movies available for this genre.</p>
+            }
+        </section>
+    }
+</div>
