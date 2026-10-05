@@ -8,6 +8,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace IS7012Final.Pages.ReviewPages;
 
@@ -97,6 +98,30 @@ public class CreateModel : PageModel
         }
 
         _context.Review.Add(Review);
+
+        // Add the movie to the user's watchlist if it's not already there
+        var userId = Review.UserId;
+        var movieId = Review.MovieId;
+        if (!string.IsNullOrEmpty(userId))
+        {
+            var wlExists = await _context.Watchlist
+                .FirstOrDefaultAsync(w => w.UserId == userId && w.MovieId == movieId);
+
+            if (wlExists == null)
+            {
+                // Link the watchlist entry to the review by setting the Review navigation property.
+                // EF will populate ReviewId when SaveChanges runs because the Review instance
+                // is tracked in the same DbContext.
+                _context.Watchlist.Add(new Watchlist
+                {
+                    UserId = userId,
+                    MovieId = movieId,
+                    DateAdded = DateTime.Now,
+                    Review = Review
+                });
+            }
+        }
+
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");
