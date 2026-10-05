@@ -22,7 +22,7 @@
         text-align: center;
     }
 
-    /* Movie Grid & Card Layout matching Popular page */
+    /* Movie Grid */
     .movie-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -30,16 +30,23 @@
         padding: 20px 0;
     }
 
+    /* Trending and Top Rated Movie Cards */
     .movie-card {
         border: 1px solid #ccc;
         border-radius: 8px;
         padding: 15px;
         box-sizing: border-box;
         background-color: #ffffff;
+        color: #171616;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
+
+        .movie-card h2,
+        .movie-card p {
+            color: #171616;
+        }
 
     .poster {
         width: 100%;
@@ -48,17 +55,23 @@
         object-fit: cover;
     }
 
-    /* Activity Feed Styles */
+    /* Recent Activity Cards */
     .feed-card {
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         padding: 15px;
         background-color: #f8f9fa;
+        color: #171616;
         margin-bottom: 15px;
         text-align: left;
     }
 
+        .feed-card p {
+            color: #171616;
+        }
+
     .feed-comment {
+        color: #171616;
         font-style: italic;
         margin-top: 6px;
         margin-bottom: 6px;

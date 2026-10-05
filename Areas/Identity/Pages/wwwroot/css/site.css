@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.search-movie-card h5,
+.search-movie-card p {
+    color: #171616;
+}

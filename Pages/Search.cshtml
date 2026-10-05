@@ -1,0 +1,107 @@
+﻿@page
+@model IS7012Final.Pages.SearchModel
+
+@{
+    ViewData["Title"] = "Search Movies";
+}
+
+<style>
+    .search-results {
+        margin-top: 30px;
+    }
+
+    .search-card {
+        background-color: #171616;
+        border: 1px solid #ffffff;
+        padding: 20px;
+        margin-bottom: 25px;
+        display: flex;
+        gap: 20px;
+    }
+
+    .search-poster {
+        width: 150px;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .search-info {
+        flex: 1;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <h1>🔍 Search Movies</h1>
+
+    <form method="get" class="mb-4">
+        <div class="input-group">
+
+            <input asp-for="SearchTerm"
+                   class="form-control"
+                   placeholder="Search by movie title..." />
+
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+    {
+        <h4>Results for "@Model.SearchTerm"</h4>
+
+        <div class="search-results">
+
+            @if (Model.Movies.Any())
+            {
+                @foreach (var movie in Model.Movies)
+                {
+                    <div class="search-card">
+
+                        @if (!string.IsNullOrWhiteSpace(movie.Poster))
+                        {
+                            <img src="@movie.Poster"
+                                 class="search-poster"
+                                 alt="@movie.Title poster" />
+                        }
+
+                        <div class="search-info">
+
+                            <h2>@movie.Title</h2>
+
+                            <p>
+                                <strong>Genres:</strong>
+                                @string.Join(", ", movie.Genres ?? new List<string>())
+                            </p>
+
+                            <p>
+                                <strong>Release Date:</strong>
+                                @movie.Release_Date
+                            </p>
+
+                            <p>
+                                <strong>Rating:</strong>
+                                ⭐ @movie.Rating
+                            </p>
+
+                            <p>
+                                @movie.Overview
+                            </p>
+
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No movies found matching your search.</p>
+            }
+
+        </div>
+
+    }
+
+</div>
