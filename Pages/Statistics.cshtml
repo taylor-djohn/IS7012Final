@@ -1,0 +1,72 @@
+﻿@page
+@model IS7012Final.Pages.StatistiscsModel
+@{
+    ViewData["Title"] = "📊 My Statistics";
+}
+
+<style>
+    .stat-box {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #171616;
+        margin: 0;
+    }
+h1 {
+        color: #ffffff;
+    }
+    h3, p, hr {
+        color: #171616;
+    }
+</style>
+
+<h1 class="text-center mb-4">📊 MY MOVIE STATISTICS</h1>
+
+<!-- Summary Row -->
+<div class="row text-center mb-5">
+    <div class="col-md-6">
+        <div class="stat-box">
+            <h3>Movies Reviewed</h3>
+            <p class="stat-number">@Model.TotalReviews</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="stat-box">
+            <h3>Average Rating</h3>
+            <p class="stat-number">@Model.AverageRating.ToString("0.0") ⭐</p>
+        </div>
+    </div>
+</div>
+
+<!-- Rating Breakdown Row -->
+<div class="row justify-content-center">
+    <div class="col-md-8 mb-4">
+        <div class="card p-4">
+            <h3>Rating Distribution</h3>
+            <hr />
+            @{
+                var distList = Model.RatingDistribution;
+                var distIndex = 0;
+                while (distIndex < distList.Count)
+                {
+                    var item = distList[distIndex];
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>@item.Stars</span>
+                            <span>@item.Count (@item.Percentage%)</span>
+                        </div>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: @item.Percentage%;" aria-valuenow="@item.Percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    distIndex++;
+                }
+            }
+        </div>
+    </div>
+</div>

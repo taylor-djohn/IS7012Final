@@ -22,3 +22,24 @@ body {
   color: #a7a8a7;
   font-family: "Courier New", Courier, monospace;
 }
+.manage-nav {
+    background-color: #212529; /* dark background matching Bootstrap bg-dark */
+}
+
+.manage-nav .nav-link {
+    color: #e9ecef; /* light text */
+    padding: .5rem 1rem;
+    display: block;
+}
+
+.manage-nav .nav-link:hover {
+    background-color: rgba(255,255,255,0.08);
+    color: #ffffff;
+}
+
+.manage-nav .nav-link.active {
+    background-color: #0d6efd; /* Bootstrap primary */
+    color: #ffffff;
+    box-shadow: 0 0 0 .2rem rgba(13,110,253,.25);
+}
+

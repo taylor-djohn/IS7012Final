@@ -5,6 +5,7 @@
         public int Id { get; set; }
 
         public string? UserId { get; set; }
+        public int? ReviewId { get; set; }
 
         public int MovieId { get; set; }
 
@@ -12,5 +13,6 @@
 
         // Navigation property
         public Movie? Movie { get; set; }
+        public Review? Review { get; set; }
     }
 }

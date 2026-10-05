@@ -1,0 +1,22 @@
+@page
+@model IS7012Final.Areas.Identity.Pages.Account.Manage.TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Two-factor authentication";
+}
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+    }
+</style>
+<h1>Two-factor authentication</h1>
+
+@if (Model.Is2faEnabled)
+{
+    <div class="alert alert-success">Two-factor authentication is enabled for your account.</div>
+}
+else
+{
+    <div class="alert alert-warning">Two-factor authentication is not enabled.</div>
+}
+
+<p>This application does not require 2FA by default. You can enable it using an authenticator app if you implement that flow.</p>

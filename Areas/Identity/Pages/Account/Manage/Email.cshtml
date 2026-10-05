@@ -1,0 +1,31 @@
+@page
+@model IS7012Final.Areas.Identity.Pages.Account.Manage.EmailModel
+@{
+    ViewData["Title"] = "Manage email";
+}
+<style> 
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+    }
+</style>
+<h1>Change email</h1>
+
+@if (TempData["StatusMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["StatusMessage"]</div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Input.Email" class="form-label"></label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="./Index" class="btn btn-link">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
