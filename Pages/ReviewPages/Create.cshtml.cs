@@ -23,6 +23,25 @@ public class CreateModel : PageModel
         _env = env;
     }
 
+    private JsonMovie? GetJsonMovieById(int id)
+    {
+        try
+        {
+            var filePath = Path.Combine(_env.WebRootPath ?? string.Empty, "data", "movies.json");
+            if (!System.IO.File.Exists(filePath))
+                return null;
+
+            var json = System.IO.File.ReadAllText(filePath);
+            var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var list = JsonSerializer.Deserialize<List<JsonMovie>>(json, opts);
+            return list?.FirstOrDefault(m => m.Id == id);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
     [BindProperty]
     public Review Review { get; set; } = default!;
 
@@ -56,6 +75,25 @@ public class CreateModel : PageModel
             );
 
             return Page();
+        }
+
+        // Ensure the referenced movie exists in the DB. If the movie was chosen from the
+        // JSON file (not present in the DB), create a minimal Movie record so the
+        // Review's foreign key constraint is satisfied.
+        var movieExists = await _context.Movie.FindAsync(Review.MovieId);
+        if (movieExists == null)
+        {
+            var jm = GetJsonMovieById(Review.MovieId);
+            if (jm != null)
+            {
+                var newMovie = new Movie
+                {
+                    Id = jm.Id,
+                    Title = jm.Title ?? "Unknown"
+                };
+                _context.Movie.Add(newMovie);
+                // No SaveChanges here; both Movie and Review will be saved together below.
+            }
         }
 
         _context.Review.Add(Review);
