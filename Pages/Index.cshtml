@@ -1,85 +1,51 @@
 ﻿@page
 @model IndexModel
 @using IS7012Final.Model
+@using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Movie Social";
-    // 1. Fake Trending Movies Data
-    var trendingMovies = new List<dynamic>
-    {
-        new { Title = "Avatar", Poster = "https://image.tmdb.org/t/p/w500/6EiRUJpuoeQPghrs3YNktfnqOVh.jpg", Rating = 7.2, Genre = "Action" },
-        new { Title = "Jurassic World", Poster = "https://image.tmdb.org/t/p/w500/rAiYTfKGqDfqI28mR4jWwX1a9M.jpg", Rating = 6.6, Genre = "Adventure" },
-        new { Title = "Interstellar", Poster = "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg", Rating = 8.6, Genre = "Sci-Fi" }
-    };
-
-    // 2. Fake Top Rated Movies Data
-    var topRatedMovies = new List<dynamic>
-    {
-        new { Title = "The Dark Knight", Poster = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg", Rating = 8.5, Genre = "Action" },
-        new { Title = "Forrest Gump", Poster = "https://image.tmdb.org/t/p/w500/saHP97rTPS5eLmrLQEcANmKrsFl.jpg", Rating = 8.5, Genre = "Drama" },
-        new { Title = "The Lord of the Rings", Poster = "https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg", Rating = 8.4, Genre = "Fantasy" }
-    };
-
-    // 3. Fake Feed & Popular Reviews Data
-    var recentActivity = new List<dynamic>
-    {
-        new { User = "Hayden", Action = "reviewed", Movie = "Interstellar", Rating = 5, Comment = "Amazing movie... mind-blowing visuals!", Likes = 12 },
-        new { User = "Alex", Action = "liked a review for", Movie = "The Dark Knight", Rating = 5, Comment = "Best superhero movie ever made.", Likes = 34 },
-        new { User = "Jordan", Action = "reviewed", Movie = "Avatar", Rating = 4, Comment = "Great visual effects, classic story.", Likes = 8 }
-    };
-
     var appUser = await UserManager.GetUserAsync(User);
 }
 
 <style>
+    h1, h2, h3, h4, h5, p, th, td {
+        color: #ffffff;
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    hr {
+        border-top: 1px solid #ffffff;
+    }
+
     .text-center {
         text-align: center;
     }
 
-    .center-image {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 8px;
-        object-fit: cover;
+    /* Movie Grid & Card Layout matching Popular page */
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px 0;
     }
 
-    .form-row {
-        margin-bottom: 12px;
-    }
-
-        .form-row label {
-            display: inline-block;
-            width: 120px;
-        }
-
-        .form-row input {
-            width: 250px;
-        }
-
-    ul {
-        text-align: left;
-    }
-
-    /* Movie Details & Layout */
-    .movie-card-container {
+    .movie-card {
         border: 1px solid #ccc;
-        padding: 10px;
-        margin: 10px;
-        width: 350px;
+        border-radius: 8px;
+        padding: 15px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    .movie-title {
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin-top: 8px;
-        margin-bottom: 4px;
-    }
-
-    .movie-sub {
-        color: #6c757d;
-        font-size: 0.9rem;
-        margin-bottom: 0;
+    .poster {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        object-fit: cover;
     }
 
     /* Activity Feed Styles */
@@ -100,24 +66,34 @@
 </style>
 
 <h1 class="text-center">&#127916; MOVIE SOCIAL</h1>
-<p class="text-center">Welcome back @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)! Discover what people are watching.</p>
+<p class="text-center">
+    Welcome back @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)! Discover what people are watching.
+</p>
+
+<hr />
 
 <!-- 🔥 Trending Movies Section -->
 <h3 class="text-center">🔥 Trending Movies</h3>
-<div class="row">
+<div class="movie-grid">
     @{
+        var trendingList = Model.TrendingMovies;
         var tIndex = 0;
-        while (tIndex < trendingMovies.Count)
+        if (trendingList != null && trendingList.Any())
         {
-            var movie = trendingMovies[tIndex];
-            <div class="col-md-4">
-                <div class="movie-card-container text-center">
-                    <img src="@movie.Poster" alt="@movie.Title poster" class="center-image" width="290" height="400" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
-                    <p class="movie-title">@movie.Title</p>
-                    <p class="movie-sub">⭐ @movie.Rating | @movie.Genre</p>
+            while (tIndex < trendingList.Count)
+            {
+                var movie = trendingList[tIndex];
+                <div class="movie-card">
+                    <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                    <h2>@movie.Title</h2>
+                    <p>⭐ @movie.Rating</p>
                 </div>
-            </div>
-            tIndex++;
+                tIndex++;
+            }
+        }
+        else
+        {
+            <p>No trending movies available.</p>
         }
     }
 </div>
@@ -129,28 +105,39 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         @{
+            var activityList = Model.RecentActivity;
             var fIndex = 0;
-            while (fIndex < recentActivity.Count)
+            if (activityList != null && activityList.Any())
             {
-                var activity = recentActivity[fIndex];
-                <div class="feed-card">
-                    <div>
-                        <strong>@activity.User</strong> @activity.Action <strong>@activity.Movie</strong>
-                    </div>
-                    <div>
-                        @{
-                            var r = 0;
-                            while (r < activity.Rating)
-                            {
-                                <span>⭐</span>
-                                r++;
+                while (fIndex < activityList.Count)
+                {
+                    var activity = activityList[fIndex];
+                    <div class="feed-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>@activity.UserName</strong> reviewed <strong>@activity.MovieTitle</strong>
+                                <span class="badge bg-secondary ms-2">@activity.UserReviewCount reviews</span>
+                            </div>
+                            <small class="text-muted">@activity.Timestamp.ToShortDateString()</small>
+                        </div>
+                        <div class="my-1">
+                            @{
+                                var r = 0;
+                                while (r < activity.Rating)
+                                {
+                                    <span>⭐</span>
+                                    r++;
+                                }
                             }
-                        }
+                        </div>
+                        <p class="feed-comment">"@activity.Comment"</p>
                     </div>
-                    <p class="feed-comment">"@activity.Comment"</p>
-                    <small class="text-muted">❤️ @activity.Likes likes</small>
-                </div>
-                fIndex++;
+                    fIndex++;
+                }
+            }
+            else
+            {
+                <p class="text-center text-muted">No recent activity found in database.</p>
             }
         }
     </div>
@@ -160,20 +147,26 @@
 
 <!-- ⭐ Top Rated Movies Section -->
 <h3 class="text-center">⭐ Top Rated Movies</h3>
-<div class="row">
+<div class="movie-grid">
     @{
+        var topList = Model.TopRatedMovies;
         var trIndex = 0;
-        while (trIndex < topRatedMovies.Count)
+        if (topList != null && topList.Any())
         {
-            var movie = topRatedMovies[trIndex];
-            <div class="col-md-4">
-                <div class="movie-card-container text-center">
-                    <img src="@movie.Poster" alt="@movie.Title poster" class="center-image" width="290" height="400" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
-                    <p class="movie-title">@movie.Title</p>
-                    <p class="movie-sub">⭐ @movie.Rating | @movie.Genre</p>
+            while (trIndex < topList.Count)
+            {
+                var movie = topList[trIndex];
+                <div class="movie-card">
+                    <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                    <h2>@movie.Title</h2>
+                    <p>⭐ @movie.Rating</p>
                 </div>
-            </div>
-            trIndex++;
+                trIndex++;
+            }
+        }
+        else
+        {
+            <p>No top-rated movies available.</p>
         }
     }
 </div>
