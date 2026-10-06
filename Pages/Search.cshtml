@@ -27,6 +27,9 @@
 
     .search-info {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 </style>
 
@@ -36,7 +39,6 @@
 
     <form method="get" class="mb-4">
         <div class="input-group">
-
             <input asp-for="SearchTerm"
                    class="form-control"
                    placeholder="Search by movie title..." />
@@ -44,7 +46,6 @@
             <button type="submit" class="btn btn-primary">
                 Search
             </button>
-
         </div>
     </form>
 
@@ -53,55 +54,66 @@
         <h4>Results for "@Model.SearchTerm"</h4>
 
         <div class="search-results">
-
-            @if (Model.Movies.Any())
+            @if (Model.Movies != null && Model.Movies.Any())
             {
-                @foreach (var movie in Model.Movies)
-                {
-                    <div class="search-card">
+                var movieList = Model.Movies.ToList();
+                var index = 0;
 
+                while (index < movieList.Count)
+                {
+                    var movie = movieList[index];
+
+                    <div class="search-card">
                         @if (!string.IsNullOrWhiteSpace(movie.Poster))
                         {
                             <img src="@movie.Poster"
                                  class="search-poster"
-                                 alt="@movie.Title poster" />
+                                 alt="@movie.Title poster"
+                                 onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
                         }
 
                         <div class="search-info">
+                            <div>
+                                <h2>@movie.Title</h2>
 
-                            <h2>@movie.Title</h2>
+                                <p>
+                                    <strong>Genres:</strong>
+                                    @string.Join(", ", movie.Genres ?? new List<string>())
+                                </p>
 
-                            <p>
-                                <strong>Genres:</strong>
-                                @string.Join(", ", movie.Genres ?? new List<string>())
-                            </p>
+                                <p>
+                                    <strong>Release Date:</strong>
+                                    @movie.Release_Date
+                                </p>
 
-                            <p>
-                                <strong>Release Date:</strong>
-                                @movie.Release_Date
-                            </p>
+                                <p>
+                                    <strong>Rating:</strong>
+                                    ⭐ @movie.Rating
+                                </p>
 
-                            <p>
-                                <strong>Rating:</strong>
-                                ⭐ @movie.Rating
-                            </p>
+                                <p>
+                                    @movie.Overview
+                                </p>
+                            </div>
 
-                            <p>
-                                @movie.Overview
-                            </p>
-
+                            <!-- Link to Review Details Page -->
+                            <div class="mt-3">
+                                <a asp-page="/ReviewPages/Details"
+                                   asp-route-id="@movie.MovieId"
+                                   class="btn btn-info text-white">
+                                    View Reviews & Details
+                                </a>
+                            </div>
                         </div>
-
                     </div>
+
+                    index++;
                 }
             }
             else
             {
                 <p>No movies found matching your search.</p>
             }
-
         </div>
-
     }
-
 </div>
