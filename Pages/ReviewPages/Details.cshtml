@@ -2,54 +2,56 @@
 @model IS7012Final.Pages.ReviewPages.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Review Details";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Review</h4>
+    <h4>@Model.Movie?.Title</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.MovieId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.MovieId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.Rating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.ReviewText)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.ReviewText)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.Timestamp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.Timestamp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.Movie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.Movie)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Review.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+    @if (Model.Review == null)
+    {
+        <div class="alert alert-info">No review available for this movie.</div>
+        <div>
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    }
+    else
+    {
+        <h4>Review</h4>
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Review.MovieTitle)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Review.MovieTitle)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Review.Rating)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Review.Rating)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Review.ReviewText)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Review.ReviewText)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Review.Timestamp)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Review.Timestamp)
+            </dd>
+        </dl>
+
+        <div>
+            <a asp-page="./Edit" asp-route-id="@Model.Review.Id">Edit</a> |
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    }
+
 </div>

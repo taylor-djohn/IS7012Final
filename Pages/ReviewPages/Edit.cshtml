@@ -14,35 +14,27 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Review.Id" />
+            <input type="hidden" asp-for="Review.MovieId" />
+           
             <div class="form-group">
-                <label asp-for="Review.UserId" class="control-label"></label>
-                <input asp-for="Review.UserId" class="form-control" />
-                <span asp-validation-for="Review.UserId" class="text-danger"></span>
+                <label asp-for="Review.MovieTitle" class="control-label">Title</label>
+                <input asp-for="Review.MovieTitle" class="form-control" />
+                <span asp-validation-for="Review.MovieTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Review.MovieId" class="control-label"></label>
-                <input asp-for="Review.MovieId" class="form-control" />
-                <span asp-validation-for="Review.MovieId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Review.Rating" class="control-label"></label>
+                <label asp-for="Review.Rating" class="control-label">Rating</label>
                 <input asp-for="Review.Rating" class="form-control" />
                 <span asp-validation-for="Review.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Review.ReviewText" class="control-label"></label>
+                <label asp-for="Review.ReviewText" class="control-label">Review</label>
                 <input asp-for="Review.ReviewText" class="form-control" />
                 <span asp-validation-for="Review.ReviewText" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Review.Timestamp" class="control-label"></label>
+                <label asp-for="Review.Timestamp" class="control-label">Date</label>
                 <input asp-for="Review.Timestamp" class="form-control" />
                 <span asp-validation-for="Review.Timestamp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Review.Movie" class="control-label"></label>
-                <input asp-for="Review.Movie" class="form-control" />
-                <span asp-validation-for="Review.Movie" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

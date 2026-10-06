@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,8 @@ namespace IS7012Final.Model
         public int Id { get; set; }
         public string? UserId { get; set; }
         public int MovieId { get; set; }
+        // store the movie title for convenience; may be null if not set
+        public string? MovieTitle { get; set; }
         [Range(1, 5)]
         public int Rating { get; set; }
         [Display(Name = "Review")]

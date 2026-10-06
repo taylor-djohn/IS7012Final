@@ -27,6 +27,8 @@ public class IndexModel : PageModel
     }
 
     public IList<Watchlist> WatchlistItems { get; set; } = new List<Watchlist>();
+    // map movieId -> poster url (if available from movies.json)
+    public Dictionary<int, string?> PosterUrls { get; set; } = new Dictionary<int, string?>();
 
     public async Task OnGetAsync()
     {
@@ -42,10 +44,13 @@ public class IndexModel : PageModel
         // try to populate displayable properties from the JSON data in wwwroot/data/movies.json.
         foreach (var item in WatchlistItems)
         {
-            if (item.Movie == null || string.IsNullOrEmpty(item.Movie.Title))
+            // always try to populate poster URL from the JSON data (if present)
+            var jm = GetJsonMovieById(item.MovieId);
+            if (jm != null)
             {
-                var jm = GetJsonMovieById(item.MovieId);
-                if (jm != null)
+                if (!PosterUrls.ContainsKey(item.MovieId)) PosterUrls[item.MovieId] = jm.Poster;
+
+                if (item.Movie == null || string.IsNullOrEmpty(item.Movie.Title))
                 {
                     item.Movie = new Movie
                     {
@@ -56,6 +61,11 @@ public class IndexModel : PageModel
                         Genre = jm.Genres != null && jm.Genres.Length > 0 ? jm.Genres[0] : null
                     };
                 }
+            }
+            else
+            {
+                // ensure mapping exists even if null so view can check TryGetValue
+                if (!PosterUrls.ContainsKey(item.MovieId)) PosterUrls[item.MovieId] = null;
             }
         }
     }

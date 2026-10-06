@@ -4,14 +4,16 @@
 @{
     ViewData["Title"] = "My Watchlist";
 }
-
+<style>
+    .watchlist-poster {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+</style>
 <h1>My Watchlist</h1>
 
-<p class="text-muted">
-    Movies you've saved to watch later.
-</p>
-
-@if (Model.WatchlistItems.Count == 0)
+@if (Model.WatchlistItems == null || Model.WatchlistItems.Count == 0)
 {
     <div class="alert alert-info">
         Your watchlist is empty.
@@ -20,33 +22,29 @@
 else
 {
     <div class="row">
-
         @foreach (var item in Model.WatchlistItems)
         {
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-
+                    @{
+                        string? poster = null;
+                        if (Model.PosterUrls != null) Model.PosterUrls.TryGetValue(item.MovieId, out poster);
+                    }
+                    @if (!string.IsNullOrEmpty(poster))
+                    {
+                        <img src="@poster" class="watchlist-poster" alt="@item.Movie?.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                    }
                     <div class="card-body">
                         <h4 class="card-title">
                             @item.Movie?.Title
                         </h4>
 
-                        <p class="card-text">
-                            <strong>Release Year:</strong>
-                            @item.Movie?.ReleaseYear
-                        </p>
-
-                        <p class="card-text">
-                            <strong>Genre:</strong>
-                            @item.Movie?.Genre
-                        </p>
-
                         <p class="text-muted">
                             Added @item.DateAdded.ToString("MM/dd/yyyy")
                         </p>
 
-                        <a asp-page="/MoviePages/Details"
-                           asp-route-id="@item.MovieId"
+                        <a asp-page="/ReviewPages/Details"
+                           asp-route-movieId="@item.MovieId"
                            class="btn btn-primary">
                             View Movie
                         </a>
@@ -67,6 +65,5 @@ else
                 </div>
             </div>
         }
-
-    </div>
+    </div>    
 }

@@ -11,18 +11,12 @@
 <div>
     <h4>IS7012Final.Model.Review</h4>
     <hr />
-    <dl class="row">
+    <dl class="row">        
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.UserId)
+            @Html.DisplayNameFor(model => model.Review.MovieTitle)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.MovieId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.MovieId)
+            @Html.DisplayFor(model => model.Review.MovieTitle)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Review.Rating)
@@ -42,12 +36,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Review.Timestamp)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Review.Movie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Review.Movie)
-        </dd>
+        
     </dl>
     <form method="post">
         <input type="hidden" asp-for="Review.Id" />

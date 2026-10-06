@@ -25,13 +25,20 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var review = await _context.Review.FirstOrDefaultAsync(m => m.Id == id);
+        var review = await _context.Review
+            .Include(r => r.Movie)
+            .FirstOrDefaultAsync(m => m.Id == id);
         if (review is null)
         {
             return NotFound();
         }
         else
         {
+            if (string.IsNullOrEmpty(review.MovieTitle) && review.Movie != null)
+            {
+                review.MovieTitle = review.Movie.Title;
+            }
+
             Review = review;
         }
 
@@ -45,13 +52,17 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var review = await _context.Review.FindAsync(id);
-        if (review != null)
+        var review = await _context.Review
+            .Include(r => r.Movie)
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (review is null) return NotFound();
+
+        if (string.IsNullOrEmpty(review.MovieTitle) && review.Movie != null)
         {
-            Review = review;
-            _context.Review.Remove(Review);
-            await _context.SaveChangesAsync();
+            review.MovieTitle = review.Movie.Title;
         }
+
+        Review = review;
 
         return RedirectToPage("./Index");
     }

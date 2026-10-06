@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,10 @@ public class IndexModel : PageModel
 
     public IList<Review> Review { get; set; } = default!;
 
-    public async Task OnGetAsync()
+    [BindProperty(SupportsGet = true)]
+    public int? MovieId { get; set; }
+
+    public async Task OnGetAsync(int? id, int? movieId)
     {
         if (User?.Identity?.IsAuthenticated != true)
         {
@@ -30,10 +34,23 @@ public class IndexModel : PageModel
 
         string? userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        Review = await _context.Review
-            .Where(r => r.UserId == userId)
-            .Include(r => r.Movie)
-            .OrderByDescending(r => r.Timestamp)
-            .ToListAsync();
+        if (MovieId.HasValue)
+        {
+            // Show all reviews for the specified movie
+            Review = await _context.Review
+                .Where(r => r.MovieId == MovieId.Value)
+                .Include(r => r.Movie)
+                .OrderByDescending(r => r.Timestamp)
+                .ToListAsync();
+        }
+        else
+        {
+            // Default: show reviews by the current user
+            Review = await _context.Review
+                .Where(r => r.UserId == userId)
+                .Include(r => r.Movie)
+                .OrderByDescending(r => r.Timestamp)
+                .ToListAsync();
+        }
     }
 }

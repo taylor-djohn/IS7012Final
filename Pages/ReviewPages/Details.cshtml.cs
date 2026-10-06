@@ -9,30 +9,48 @@ namespace IS7012Final.Pages.ReviewPages;
 public class DetailsModel : PageModel
 {
     private readonly ApplicationDbContext _context;
-    public DetailsModel(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
+    public Movie Movie { get; private set; }
+    public DetailsModel(ApplicationDbContext context) => _context = context;
+  
     public Review Review { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(int? id)
+    public async Task<IActionResult> OnGetAsync(int? movieId, int? id)
     {
-        if (id is null)
+        // If caller passed movieId, show first review for that movie
+        if (movieId.HasValue)
         {
-            return NotFound();
+            Movie = await _context.Movie
+                .Include(m => m.Reviews)
+                .FirstOrDefaultAsync(m => m.Id == movieId.Value);
+            if (Movie == null) return NotFound();
+
+            Review = Movie.Reviews.FirstOrDefault();
+            if (Review != null && string.IsNullOrEmpty(Review.MovieTitle))
+            {
+                Review.MovieTitle = Movie.Title;
+            }
+
+            return Page();
         }
 
-        var review = await _context.Review.FirstOrDefaultAsync(m => m.Id == id);
-        if (review is null)
+        // If caller passed id, treat it as a Review id (links from Review index use asp-route-id)
+        if (id.HasValue)
         {
-            return NotFound();
-        }
-        else
-        {
-            Review = review;
+            var rev = await _context.Review
+                .Include(r => r.Movie)
+                .FirstOrDefaultAsync(r => r.Id == id.Value);
+            if (rev == null) return NotFound();
+
+            Review = rev;
+            Movie = rev.Movie!;
+            if (string.IsNullOrEmpty(Review.MovieTitle) && Movie != null)
+            {
+                Review.MovieTitle = Movie.Title;
+            }
+
+            return Page();
         }
 
-        return Page();
+        return NotFound();
     }
 }

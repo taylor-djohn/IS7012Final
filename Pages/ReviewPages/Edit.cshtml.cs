@@ -25,11 +25,19 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var review = await _context.Review.FirstOrDefaultAsync(m => m.Id == id);
+        var review = await _context.Review
+            .Include(r => r.Movie)
+            .FirstOrDefaultAsync(m => m.Id == id);
         if (review is null)
         {
             return NotFound();
         }
+        // ensure MovieTitle is populated for the edit form
+        if (string.IsNullOrEmpty(review.MovieTitle) && review.Movie != null)
+        {
+            review.MovieTitle = review.Movie.Title;
+        }
+
         Review = review;
         return Page();
     }
@@ -38,32 +46,19 @@ public class EditModel : PageModel
     // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
+        if (!ModelState.IsValid) return Page();
 
-        _context.Attach(Review).State = EntityState.Modified;
+        var dbReview = await _context.Review.FindAsync(Review.Id);
+        if (dbReview == null) return NotFound();
 
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!ReviewExists(Review.Id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+        dbReview.MovieTitle = Review.MovieTitle;
+        dbReview.Rating = Review.Rating;
+        dbReview.ReviewText = Review.ReviewText;
+        dbReview.Timestamp = Review.Timestamp;
 
+        await _context.SaveChangesAsync();
         return RedirectToPage("./Index");
     }
-
     private bool ReviewExists(int id)
     {
         return _context.Review.Any(e => e.Id == id);
