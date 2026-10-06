@@ -76,6 +76,14 @@
         margin-top: 6px;
         margin-bottom: 6px;
     }
+    .card-link {
+        text-decoration: none;
+        color: inherit;
+    }
+    .movie-title-link {
+        color: #171616;
+        text-decoration: underline;
+    }
 </style>
 
 <h1 class="text-center">&#127916; MOVIE SOCIAL</h1>
@@ -97,8 +105,10 @@
             {
                 var movie = trendingList[tIndex];
                 <div class="movie-card">
+                <a asp-page="/ReviewPages/Details" asp-route-movieId="@movie.Id" class="card-link">
                     <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
                     <h2>@movie.Title</h2>
+                    </a>
                     <p>⭐ @movie.Rating</p>
                 </div>
                 tIndex++;
@@ -170,8 +180,10 @@
             {
                 var movie = topList[trIndex];
                 <div class="movie-card">
+                <a asp-page="/ReviewPages/Details" asp-route-movieId="@movie.Id" class="card-link">
                     <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
                     <h2>@movie.Title</h2>
+                </a>
                     <p>⭐ @movie.Rating</p>
                 </div>
                 trIndex++;

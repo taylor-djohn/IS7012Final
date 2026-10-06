@@ -1,57 +1,153 @@
-@page
+@page "{movieId:int?}"
 @model IS7012Final.Pages.ReviewPages.DetailsModel
 
 @{
-    ViewData["Title"] = "Review Details";
+    ViewData["Title"] = Model.Movie?.Title ?? "Movie & Reviews";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>@Model.Movie?.Title</h4>
-    <hr />
-
-    @if (Model.Review == null)
-    {
-        <div class="alert alert-info">No review available for this movie.</div>
-        <div>
-            <a asp-page="./Index">Back to List</a>
-        </div>
-    }
-    else
-    {
-        <h4>Review</h4>
-        <dl class="row">
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Review.MovieTitle)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Review.MovieTitle)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Review.Rating)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Review.Rating)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Review.ReviewText)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Review.ReviewText)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Review.Timestamp)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Review.Timestamp)
-            </dd>
-        </dl>
-
-        <div>
-            <a asp-page="./Edit" asp-route-id="@Model.Review.Id">Edit</a> |
-            <a asp-page="./Index">Back to List</a>
-        </div>
+<style>
+    h1, h2, h3, h4, h5, p, th, td {
+        color: #ffffff;
+        font-family: "Courier New", Courier, monospace;
     }
 
+    hr {
+        border-top: 1px solid #ffffff;
+    }
+
+    /* Movie Detail Card styling matching Watchlist format */
+    .movie-detail-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        color: #171616;
+        margin-bottom: 30px;
+    }
+
+        .movie-detail-card h2,
+        .movie-detail-card p,
+        .movie-detail-card strong {
+            color: #171616;
+        }
+
+    .watchlist-poster {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    /* Review Card styling matching feed format */
+    .review-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        color: #171616;
+        margin-bottom: 15px;
+    }
+
+        .review-card p,
+        .review-card h5,
+        .review-card strong {
+            color: #171616;
+        }
+</style>
+
+<div class="container my-4">
+    @{
+        if (Model.Movie != null)
+        {
+            @* Movie Header Card matching Watchlist poster format *@
+            <div class="movie-detail-card shadow-sm">
+                <div class="row g-4 align-items-center">
+
+                    <div class="col-md-8">
+                        <h2>@Model.Movie.Title</h2>
+  
+                    </div>
+                </div>
+            </div>
+
+            @* User's Personal Review Section *@
+            <div class="mb-4">
+                <h3>Your Review</h3>
+                <hr />
+
+                @{
+                    if (Model.UserReview != null)
+                    {
+                        <div class="review-card border-primary">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Your Submitted Review</h5>
+                                <span class="badge bg-primary fs-6">⭐ @Model.UserReview.Rating</span>
+                            </div>
+                            <p class="mt-2 mb-1">"@Model.UserReview.ReviewText"</p>
+                            <small class="text-muted d-block mb-3">Posted on @Model.UserReview.Timestamp.ToString("MM/dd/yyyy")</small>
+
+                            <div class="d-flex gap-2">
+                                <a asp-page="/ReviewPages/Edit"
+                                   asp-route-id="@Model.UserReview.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Edit Review
+                                </a>
+                                <a asp-page="/ReviewPages/Delete"
+                                   asp-route-id="@Model.UserReview.Id"
+                                   class="btn btn-sm btn-outline-danger">
+                                    Delete Review
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-light border d-flex justify-content-between align-items-center">
+                            <span class="text-dark">You haven't reviewed this movie yet.</span>
+                            <a asp-page="/ReviewPages/Create"
+                               asp-route-movieId="@Model.Movie.Id"
+                               class="btn btn-success btn-sm">
+                                Write a Review
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+
+            @* Community Reviews Section *@
+            <div class="mb-4">
+                <h3>Community Reviews</h3>
+                <hr />
+
+                @{
+                    if (Model.OtherReviews != null && Model.OtherReviews.Any())
+                    {
+                        var index = 0;
+                        while (index < Model.OtherReviews.Count)
+                        {
+                            var rev = Model.OtherReviews[index];
+                            <div class="review-card shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>User: @rev.UserId</strong>
+                                    <span class="badge bg-warning text-dark">⭐ @rev.Rating</span>
+                                </div>
+                                <p class="mt-2 mb-1">"@rev.ReviewText"</p>
+                                <small class="text-muted">Posted on @rev.Timestamp.ToString("MM/dd/yyyy")</small>
+                            </div>
+                            index++;
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">No other community reviews available for this movie yet.</p>
+                    }
+                }
+            </div>
+        }
+    }
+
+    <div class="mt-3">
+        <a asp-page="/WatchlistPages/Index" class="btn btn-secondary">Back to Watchlist</a>
+    </div>
 </div>
