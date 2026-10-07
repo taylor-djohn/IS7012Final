@@ -96,12 +96,21 @@
                                 </p>
                             </div>
 
-                            <!-- Link to Review Details Page -->
-                            <div class="mt-3">
+                            <!-- Action Buttons -->
+                            <div class="mt-3 d-flex gap-2 align-items-center">
+                                <!-- Button 1: Add to Watchlist -->
+                                <form method="post" asp-page-handler="AddToWatchlist" class="m-0">
+                                    <input type="hidden" name="movieId" value="@movie.MovieId" />
+                                    <button type="submit" class="btn btn-success">
+                                        ➕ Add to Watchlist
+                                    </button>
+                                </form>
+
+                                <!-- Button 2: Link to Review Details Page -->
                                 <a asp-page="/ReviewPages/Details"
                                    asp-route-id="@movie.MovieId"
                                    class="btn btn-info text-white">
-                                    View Reviews & Details
+                                    ⭐ View Reviews & Details
                                 </a>
                             </div>
                         </div>

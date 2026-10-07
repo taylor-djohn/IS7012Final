@@ -11,8 +11,7 @@ namespace IS7012Final.Model
         public int Id { get; set; }
         public string? UserId { get; set; }
         public int MovieId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+   
         // store the movie title for convenience; may be null if not set
         [Display(Name = "Title")]
         public string? MovieTitle { get; set; }
@@ -24,5 +23,6 @@ namespace IS7012Final.Model
         public DateTime Timestamp { get; set; } = DateTime.Now;
         // Navigation property to the related Movie
         public Movie? Movie { get; set; }
+        public ApplicationUser? User { get; set; }
     }
 }

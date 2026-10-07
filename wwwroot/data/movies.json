@@ -244,7 +244,7 @@
     "title": "Harry Potter and the Order of the Phoenix",
     "overview": "Harry forms Dumbledore's Army...",
     "genres": [ "Adventure", "Fantasy" ],
-    "poster": "https://media.themoviedb.org/t/p/w188_and_h282_face/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
     "release_date": "2007-07-08",
     "rating": 7.5,
     "popularity": 68.98765
@@ -319,5 +319,41 @@
 
     "rating": 8.6,
     "popularity": 66.54321
-  }
+  },
+  {
+    "id": 550,
+    "title": "Fight Club",
+    "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a sho...",
+    "genres": [ "Drama" ],
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/jSziioSwPVrOy9Yow3XhWIBDjq1.jpg",
+    "rating": 8.4,
+    "release_date": "1999-10-15"
+  },
+  {
+    "id": 118340,
+    "title": "Guardians of the Galaxy",
+    "overview": "Light years from Earth, 26 years after being abducted, Peter Quill finds himself the prime target of...",
+    "genres": [ "Action", "Adventure", "Science Fiction" ],
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg",
+    "rating": 7.9,
+    "release_date": "2014-07-30"
+  },
+  {
+    "id": 680,
+    "title": "Pulp Fiction",
+    "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up bo...",
+    "genres": [ "Thriller", "Crime" ],
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg",
+    "rating": 8.5,
+    "release_date": "1994-09-10"
+  },
+  {
+    "id": 14160,
+    "title": "Up",
+    "overview": "Carl Fredricksen spent his entire life dreaming of exploring the globe and experiencing life to its ...",
+    "genres": [ "Animation", "Adventure", "Comedy", "Family" ],
+    "poster": "https://media.themoviedb.org/t/p/w600_and_h900_face/mFvoEwSfLqbcWwFsDjQebn9bzFe.jpg",
+    "rating": 8,
+    "release_date": "2009-05-28"}
+
 ]
