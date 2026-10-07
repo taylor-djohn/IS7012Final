@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -61,7 +65,14 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        Review.UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        // Get current logged-in user ID
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Challenge();
+        }
+        Review.UserId = userId;
         Review.Timestamp = DateTime.Now;
         ModelState.Remove("Review.UserId");
         ModelState.Remove("Review.Timestamp");
@@ -99,28 +110,7 @@ public class CreateModel : PageModel
 
         _context.Review.Add(Review);
 
-        // Add the movie to the user's watchlist if it's not already there
-        var userId = Review.UserId;
-        var movieId = Review.MovieId;
-        if (!string.IsNullOrEmpty(userId))
-        {
-            var wlExists = await _context.Watchlist
-                .FirstOrDefaultAsync(w => w.UserId == userId && w.MovieId == movieId);
-
-            if (wlExists == null)
-            {
-                // Link the watchlist entry to the review by setting the Review navigation property.
-                // EF will populate ReviewId when SaveChanges runs because the Review instance
-                // is tracked in the same DbContext.
-                _context.Watchlist.Add(new Watchlist
-                {
-                    UserId = userId,
-                    MovieId = movieId,
-                    DateAdded = DateTime.Now,
-                    Review = Review
-                });
-            }
-        }
+        
 
         await _context.SaveChangesAsync();
 

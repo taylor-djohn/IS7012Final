@@ -15,7 +15,7 @@ namespace IS7012Final.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IS7012Final.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _env;
 
         public IndexModel(ApplicationDbContext context, IWebHostEnvironment env)
@@ -26,7 +26,6 @@ namespace IS7012Final.Pages
 
         public List<MovieCard> TrendingMovies { get; set; } = new();
         public List<MovieCard> TopRatedMovies { get; set; } = new();
-        // name matches the Razor page usage (RecentActivity)
         public List<FeedActivityItem> RecentActivity { get; set; } = new();
 
         public async Task OnGetAsync()
@@ -36,10 +35,12 @@ namespace IS7012Final.Pages
                 .Include(m => m.Reviews)
                 .ToListAsync();
 
-            // For each movie, build a MovieCard with Poster, Rating (average), GenreName
+            // For each movie, build a MovieCard using a while loop
             var movieCards = new List<MovieCard>();
-            foreach (var m in movies)
+            var movieIndex = 0;
+            while (movieIndex < movies.Count)
             {
+                var m = movies[movieIndex];
                 var mc = new MovieCard
                 {
                     Id = m.Id,
@@ -49,20 +50,23 @@ namespace IS7012Final.Pages
                     Poster = GetPosterForMovie(m.Id)
                 };
                 movieCards.Add(mc);
+                movieIndex++;
             }
 
-            TrendingMovies = movieCards.Take(3).ToList();
-            TopRatedMovies = movieCards.OrderByDescending(c => c.Rating).Take(3).ToList();
+            TrendingMovies = movieCards.Take(6).ToList();
+            TopRatedMovies = movieCards.OrderByDescending(c => c.Rating).Take(6).ToList();
 
-            // Recent activity: latest 10 reviews
+            // Recent activity: limited to the latest 5 reviews
             var reviews = await _context.Review
                 .Include(r => r.Movie)
                 .OrderByDescending(r => r.Timestamp)
-                .Take(10)
+                .Take(5)
                 .ToListAsync();
 
-            foreach (var rev in reviews)
+            var reviewIndex = 0;
+            while (reviewIndex < reviews.Count)
             {
+                var rev = reviews[reviewIndex];
                 var user = await _context.Users.FindAsync(rev.UserId);
                 var userReviewCount = await _context.Review.CountAsync(r => r.UserId == rev.UserId);
 
@@ -77,6 +81,8 @@ namespace IS7012Final.Pages
                     UserReviewCount = userReviewCount,
                     Likes = 0
                 });
+
+                reviewIndex++;
             }
         }
 

@@ -34,6 +34,7 @@ public class DetailsModel : PageModel
         // 1. Load Movie along with all existing reviews
         Movie = await _context.Movie
             .Include(m => m.Reviews)
+            .ThenInclude(r => r.User)
             .FirstOrDefaultAsync(m => m.Id == targetId.Value);
 
         if(Movie == null)
