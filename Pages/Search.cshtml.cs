@@ -73,20 +73,65 @@ namespace IS7012Final.Pages
                 return Challenge();
             }
 
-            var exists = _context.Watchlist
-                .Any(w => w.UserId == userId && w.MovieId == movieId);
 
-            if (!exists)
+            var jsonPath = Path.Combine(_env.WebRootPath, "data", "movies.json");
+
+            if (!System.IO.File.Exists(jsonPath))
             {
-                var watlistItem = new Watchlist
+                return NotFound("Movie data file not found.");
+            }
+
+            var json = await System.IO.File.ReadAllTextAsync(jsonPath);
+
+            var allMovies = JsonSerializer.Deserialize<List<JsonMovie>>(
+                json,
+                new JsonSerializerOptions
                 {
-                    UserId = userId,
-                    MovieId = movieId,
-                    DateAdded = DateTime.UtcNow,
+                    PropertyNameCaseInsensitive = true
+                }
+            ) ?? new List<JsonMovie>();
+            var selectedMovie = allMovies.FirstOrDefault(m => m.MovieId == movieId);
+            if (selectedMovie != null)
+            {
+                Console.WriteLine("SELECTED MOVIE: " + selectedMovie.Title);
+                Console.WriteLine("JSON MOVIE ID: " + selectedMovie.MovieId);
+            }
+
+            if (selectedMovie == null || string.IsNullOrWhiteSpace(selectedMovie.Title))
+            {
+                return NotFound("Movie not found.");
+            }
+            var movie = _context.Movie
+                .FirstOrDefault(m => m.Title == selectedMovie.Title);
+            if (movie == null)
+            {
+                movie = new Movie
+                {
+                    Title = selectedMovie.Title,
+                    Director = "Unknown",
+                    ReleaseYear = 0,
+                    Genre = "Unknown"
                 };
-                _context.Watchlist.Add(watlistItem);
+                _context.Movie.Add(movie);
                 await _context.SaveChangesAsync();
             }
+            bool alreadyExists = _context.Watchlist
+                .Any(w => w.UserId == userId && w.MovieId == movie.Id);
+
+            if (!alreadyExists)
+            {
+                var watchlistItem = new Watchlist
+                {
+                    UserId = userId,
+                    MovieId = movie.Id,
+                    DateAdded = DateTime.UtcNow
+                };
+                _context.Watchlist.Add(watchlistItem);
+                await _context.SaveChangesAsync();
+            }
+            Console.WriteLine("DATABASE MOVIE: " + movie.Title);
+            Console.WriteLine("DATABASE MOVIE ID: " + movie.Id);
+            Console.WriteLine("ALREADY IN WATCHLIST: " + alreadyExists);
             return RedirectToPage("/WatchlistPages/Index");
         }
     }

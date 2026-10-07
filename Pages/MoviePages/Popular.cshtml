@@ -4,43 +4,142 @@
 @{
     ViewData["Title"] = "Popular Movies";
 }
+
 <style>
+    .popular-container {
+        background-color: #141414;
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        min-height: 75vh;
+    }
+
     .movie-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin: 10px;
-        width: 350px;
+        background-color: #222;
+        border: 1px solid #333;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+        transition: transform 0.2s;
     }
 
-    .poster {
+        .movie-card:hover {
+            transform: scale(1.03);
+        }
+
+    .movie-poster {
         width: 100%;
-        height: auto;
+        height: 320px;
+        object-fit: cover;
+
     }
 
-    .movie-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 20px;
+    .movie-info {
+        padding: 15px;
+    }
+
+    .movie-title {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .movie-genre {
+        color: #aaa;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .movie-date {
+        color: #aaa;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .movie-rating {
+        color: #ffc107;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .movie-overview {
+        color: #ccc;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .section-title {
+        color: white;
+        margin-bottom: 25px;
+        text-align: center;
     }
 </style>
-<div class="movie-grid">
-@if (Model.Movie != null)
-{
-    foreach (var movie in Model.Movie)
+
+<div class="popular-container">
+
+    <h1 class="section-title">🎬 Popular Movies</h1>
+
+    @if (Model.Movie != null && Model.Movie.Any())
     {
-        <div class="movie-card">
-            <img src="@movie.Poster" class="poster" alt="@movie.Title poster"/>
-            <h2>@movie.Title</h2>
-            <p>@string.Join(", ", movie.Genres ?? new List<string>())</p>
-            <p>@movie.Release_Date</p>
-            <p>⭐ @movie.Rating</p>
-            <p>@movie.Overview</p>
+        <div class="row">
+
+            @foreach (var movie in Model.Movie)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                    <div class="movie-card">
+
+                        @if (!string.IsNullOrEmpty(movie.Poster))
+                        {
+                            <img src="@movie.Poster"
+                                 class="movie-poster"
+                                 alt="@movie.Title"
+                                 onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                        }
+                        else
+                        {
+                            <div class="movie-poster d-flex align-items-center justify-content-center bg-secondary">
+                                No Poster Available
+                            </div>
+                        }
+
+                        <div class="movie-info">
+
+                            <div class="movie-title">
+                                @movie.Title
+                            </div>
+
+                            <div class="movie-genre">
+                                @string.Join(", ", movie.Genres ?? new List<string>())
+                            </div>
+
+                            <div class="movie-date">
+                                Released: @movie.Release_Date
+                            </div>
+
+                            <div class="movie-rating">
+                                ⭐ @movie.Rating.ToString("0.0") / 5
+                            </div>
+
+                            <div class="movie-overview">
+                                @movie.Overview
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
         </div>
     }
-}
-else
-{
-    <p>No movies available.</p>
-}
+    else
+    {
+        <div class="alert alert-secondary">
+            No popular movies available.
+        </div>
+    }
+
 </div>
