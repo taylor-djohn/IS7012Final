@@ -52,7 +52,8 @@ public class GenreListModel : PageModel
 
 public class JsonMovie
 {
-    public string? MovieId { get; set; }
+    [System.Text.Json.Serialization.JsonPropertyName("id")]
+    public int MovieId { get; set; }
     public string? Title { get; set; }
     public string? Poster { get; set; }
     public List<string>? Genres { get; set; }

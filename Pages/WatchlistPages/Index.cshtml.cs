@@ -44,28 +44,15 @@ public class IndexModel : PageModel
         // try to populate displayable properties from the JSON data in wwwroot/data/movies.json.
         foreach (var item in WatchlistItems)
         {
-            // always try to populate poster URL from the JSON data (if present)
-            var jm = GetJsonMovieById(item.MovieId);
+            var jm = GetJsonMovieByTitle(item.Movie?.Title);
+
             if (jm != null)
             {
-                if (!PosterUrls.ContainsKey(item.MovieId)) PosterUrls[item.MovieId] = jm.Poster;
-
-                if (item.Movie == null || string.IsNullOrEmpty(item.Movie.Title))
-                {
-                    item.Movie = new Movie
-                    {
-                        Id = jm.Id,
-                        Title = jm.Title,
-                        // parse release year from release_date like "2009-12-10"
-                        ReleaseYear = ParseYear(jm.ReleaseDate),
-                        Genre = jm.Genres != null && jm.Genres.Length > 0 ? jm.Genres[0] : null
-                    };
-                }
+                PosterUrls[item.MovieId] = jm.Poster;
             }
             else
             {
-                // ensure mapping exists even if null so view can check TryGetValue
-                if (!PosterUrls.ContainsKey(item.MovieId)) PosterUrls[item.MovieId] = null;
+                PosterUrls[item.MovieId] = null;
             }
         }
     }
@@ -79,59 +66,32 @@ public class IndexModel : PageModel
         return 0;
     }
 
-    private JsonMovie? GetJsonMovieById(int id)
+    private JsonMovie? GetJsonMovieByTitle(string? title)
     {
-        try
+        if (string.IsNullOrWhiteSpace(title))
         {
-            // Try common locations for the JSON file
-            var candidatePaths = new[] {
-                Path.Combine(_env.WebRootPath ?? string.Empty, "data", "movies.json"),
-                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "movies.json"),
-                Path.Combine(Directory.GetCurrentDirectory(), "data", "movies.json")
-            };
+            return null;
+        }
 
-            string? filePath = candidatePaths.FirstOrDefault(p => !string.IsNullOrEmpty(p) && System.IO.File.Exists(p));
-            if (string.IsNullOrEmpty(filePath)) return null;
+        var jsonPath = Path.Combine(_env.WebRootPath, "data", "movies.json");
 
-            using var doc = JsonDocument.Parse(System.IO.File.ReadAllText(filePath));
-            if (doc.RootElement.ValueKind != JsonValueKind.Array) return null;
+        if (!System.IO.File.Exists(jsonPath))
+        {
+            return null;
+        }
 
-            foreach (var el in doc.RootElement.EnumerateArray())
+        var json = System.IO.File.ReadAllText(jsonPath);
+
+        var movies = JsonSerializer.Deserialize<List<JsonMovie>>(
+            json,
+            new JsonSerializerOptions
             {
-                if (!el.TryGetProperty("id", out var idProp)) continue;
-                if (idProp.ValueKind != JsonValueKind.Number) continue;
-                if (idProp.GetInt32() != id) continue;
-
-                var jm = new JsonMovie { Id = id };
-
-                if (el.TryGetProperty("title", out var titleProp) && titleProp.ValueKind == JsonValueKind.String)
-                    jm.Title = titleProp.GetString();
-
-                if (el.TryGetProperty("release_date", out var rdProp) && rdProp.ValueKind == JsonValueKind.String)
-                    jm.ReleaseDate = rdProp.GetString();
-
-                if (el.TryGetProperty("genres", out var genresProp) && genresProp.ValueKind == JsonValueKind.Array)
-                {
-                    var list = new List<string>();
-                    foreach (var g in genresProp.EnumerateArray()) if (g.ValueKind == JsonValueKind.String) list.Add(g.GetString()!);
-                    jm.Genres = list.ToArray();
-                }
-
-                if (el.TryGetProperty("overview", out var ovProp) && ovProp.ValueKind == JsonValueKind.String)
-                    jm.Overview = ovProp.GetString();
-
-                if (el.TryGetProperty("poster", out var pProp) && pProp.ValueKind == JsonValueKind.String)
-                    jm.Poster = pProp.GetString();
-
-                return jm;
+                PropertyNameCaseInsensitive = true
             }
+        );
 
-            return null;
-        }
-        catch
-        {
-            return null;
-        }
+        return movies?.FirstOrDefault(m =>
+            string.Equals(m.Title, title, StringComparison.OrdinalIgnoreCase));
     }
 
     private class JsonMovie

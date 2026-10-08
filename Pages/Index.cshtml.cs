@@ -47,14 +47,19 @@ namespace IS7012Final.Pages
                     Title = m.Title ?? "",
                     GenreName = !string.IsNullOrEmpty(m.Genre) ? m.Genre : (m.Genres?.FirstOrDefault()?.Name ?? ""),
                     Rating = m.Reviews != null && m.Reviews.Count > 0 ? m.Reviews.Average(r => r.Rating) : 0.0,
-                    Poster = GetPosterForMovie(m.Id)
+                    Poster = GetPosterForMovie(m.Title)
                 };
                 movieCards.Add(mc);
                 movieIndex++;
             }
 
-            TrendingMovies = movieCards.Take(6).ToList();
-            TopRatedMovies = movieCards.OrderByDescending(c => c.Rating).Take(6).ToList();
+            TrendingMovies = movieCards
+                .OrderByDescending(c => movies
+                    .First(m => m.Id == c.Id).Reviews?.Count ?? 0)
+                .Take(4)
+                .ToList();
+           
+            TopRatedMovies = movieCards.OrderByDescending(c => c.Rating).Take(4).ToList();
 
             // Recent activity: limited to the latest 5 reviews
             var reviews = await _context.Review
@@ -74,7 +79,7 @@ namespace IS7012Final.Pages
                 {
                     UserName = user?.UserName ?? rev.UserId ?? "Unknown",
                     MovieTitle = rev.Movie?.Title ?? "Unknown Movie",
-                    MoviePoster = rev.Movie != null ? GetPosterForMovie(rev.MovieId) : null,
+                    MoviePoster = rev.Movie != null ? GetPosterForMovie(rev.Movie.Title) : null,
                     Comment = rev.ReviewText,
                     Rating = rev.Rating,
                     Timestamp = rev.Timestamp,
@@ -86,17 +91,35 @@ namespace IS7012Final.Pages
             }
         }
 
-        private string? GetPosterForMovie(int movieId)
+        private string? GetPosterForMovie(string? movieTitle)
         {
+            if (string.IsNullOrWhiteSpace(movieTitle))
+            {
+                return null;
+            }
+
             try
             {
-                var filePath = Path.Combine(_env.WebRootPath ?? string.Empty, "data", "movies.json");
-                if (!System.IO.File.Exists(filePath)) return null;
+                var filePath = Path.Combine(_env.WebRootPath, "data", "movies.json");
+
+                if (!System.IO.File.Exists(filePath))
+                {
+                    return null;
+                }
+
                 var json = System.IO.File.ReadAllText(filePath);
-                var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var list = JsonSerializer.Deserialize<List<JsonMovie>>(json, opts);
-                var jm = list?.FirstOrDefault(x => x.Id == movieId);
-                return jm?.Poster;
+
+                var opts = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var movies = JsonSerializer.Deserialize<List<JsonMovie>>(json, opts);
+
+                var movie = movies?.FirstOrDefault(m =>
+                    string.Equals(m.Title, movieTitle, StringComparison.OrdinalIgnoreCase));
+
+                return movie?.Poster;
             }
             catch
             {

@@ -4,67 +4,123 @@
 @{
     ViewData["Title"] = "My Watchlist";
 }
+
 <style>
+    .watchlist-container {
+        background-color: #141414;
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        min-height: 75vh;
+    }
+
+    .watchlist-card {
+        background-color: #222;
+        border: 1px solid #333;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+        transition: transform 0.2s;
+    }
+
+        .watchlist-card:hover {
+            transform: scale(1.03);
+        }
+
     .watchlist-poster {
         width: 100%;
-        height: auto;
+        height: 320px;
         object-fit: cover;
     }
+
+    .watchlist-info {
+        padding: 15px;
+    }
+
+    .watchlist-title {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .watchlist-date {
+        color: #aaa;
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
 </style>
-<h1>My Watchlist</h1>
 
-@if (Model.WatchlistItems == null || Model.WatchlistItems.Count == 0)
-{
-    <div class="alert alert-info">
-        Your watchlist is empty.
-    </div>
-}
-else
-{
-    <div class="row">
-        @foreach (var item in Model.WatchlistItems)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    @{
-                        string? poster = null;
-                        if (Model.PosterUrls != null) Model.PosterUrls.TryGetValue(item.MovieId, out poster);
-                    }
-                    @if (!string.IsNullOrEmpty(poster))
-                    {
-                        <img src="@poster" class="watchlist-poster" alt="@item.Movie?.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
-                    }
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            @item.Movie?.Title
-                        </h4>
+<div class="watchlist-container">
 
-                        <p class="text-muted">
-                            Added @item.DateAdded.ToString("MM/dd/yyyy")
-                        </p>
+    <h1 class="mb-4">My Watchlist</h1>
 
+    @if (Model.WatchlistItems == null || Model.WatchlistItems.Count == 0)
+    {
+        <div class="alert alert-secondary">
+            Your watchlist is empty. Search for movies to add!
+        </div>
+    }
+    else
+    {
+        <div class="row">
 
-                        <a asp-page="/ReviewPages/Details"
-                           asp-route-movieId="@item.MovieId"
-                           class="btn btn-primary">
-                            View Reviews
-                        </a>
+            @foreach (var item in Model.WatchlistItems)
+            {
+                string? poster = null;
+                Model.PosterUrls.TryGetValue(item.MovieId, out poster);
 
-                        <form method="post"
-                              asp-page-handler="Remove"
-                              asp-route-id="@item.Id"
-                              class="d-inline">
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="watchlist-card">
 
-                            <button type="submit"
-                                    class="btn btn-danger">
-                                Remove
-                            </button>
+                        @if (!string.IsNullOrEmpty(poster))
+                        {
+                            <img src="@poster"
+                                 class="watchlist-poster"
+                                 alt="@item.Movie?.Title"
+                                 onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                        }
+                        else
+                        {
+                            <div class="watchlist-poster d-flex align-items-center justify-content-center bg-secondary">
+                                No Poster Available
+                            </div>
+                        }
 
-                        </form>
+                        <div class="watchlist-info">
 
+                            <div class="watchlist-title">
+                                @item.Movie?.Title
+                            </div>
+
+                            <div class="watchlist-date">
+                                Added @item.DateAdded.ToString("MM/dd/yyyy")
+                            </div>
+
+                            <a asp-page="/ReviewPages/Index"
+                               asp-route-movieId="@item.MovieId"
+                               class="btn btn-primary btn-sm mb-2">
+                                View Reviews
+                            </a>
+
+                            <form method="post"
+                                  asp-page-handler="Remove"
+                                  asp-route-id="@item.Id"
+                                  class="d-inline">
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm mb-2">
+                                    Remove
+                                </button>
+
+                            </form>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>    
-}
+            }
+
+        </div>
+    }
+
+</div>

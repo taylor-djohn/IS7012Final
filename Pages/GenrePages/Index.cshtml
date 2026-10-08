@@ -2,34 +2,111 @@
 @model IS7012Final.Pages.GenrePages.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Movie Genres";
 }
-<h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre[0].Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Genre) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<style>
+    .genre-container {
+        background-color: #141414;
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        min-height: 75vh;
+    }
+
+    .genre-card {
+        background-color: #222;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 25px;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+        .genre-card:hover {
+            transform: scale(1.03);
+        }
+
+    .genre-title {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .genre-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .section-title {
+        color: white;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+</style>
+
+<div class="genre-container">
+
+    <h1 class="section-title">🎬 Movie Genres</h1>
+
+    <div class="text-center mb-4">
+        <a asp-page="Create" class="btn btn-primary">
+            + Create New Genre
+        </a>
+    </div>
+
+    @if (Model.Genre != null && Model.Genre.Any())
+    {
+        <div class="row">
+
+            @foreach (var item in Model.Genre)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                    <div class="genre-card">
+
+                        <div class="genre-title">
+                            @item.Name
+                        </div>
+
+                        <div class="genre-actions">
+
+                            <a asp-page="./Details"
+                               asp-route-id="@item.Id"
+                               class="btn btn-primary btn-sm">
+                                Details
+                            </a>
+
+                            <a asp-page="./Edit"
+                               asp-route-id="@item.Id"
+                               class="btn btn-secondary btn-sm">
+                                Edit
+                            </a>
+
+                            <a asp-page="./Delete"
+                               asp-route-id="@item.Id"
+                               class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-secondary">
+            No genres available.
+        </div>
+    }
+
+</div>

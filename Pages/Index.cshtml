@@ -3,194 +3,259 @@
 @using IS7012Final.Model
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Movie Social";
     var appUser = await UserManager.GetUserAsync(User);
 }
 
 <style>
-    h1, h2, h3, h4, h5, p, th, td {
-        color: #ffffff;
-        font-family: "Courier New", Courier, monospace;
+    .home-container {
+        background-color: #141414;
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        min-height: 75vh;
     }
 
-    hr {
-        border-top: 1px solid #ffffff;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    /* Movie Grid */
-    .movie-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 20px 0;
-    }
-
-    /* Trending and Top Rated Movie Cards */
     .movie-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin: 10px;
-        width: 350px;
-        color: #171616;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        background-color: #222;
+        border: 1px solid #333;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+        transition: transform 0.2s;
     }
 
-        .movie-card h2,
-        .movie-card p {
-            color: #ffffff;
+        .movie-card:hover {
+            transform: scale(1.03);
         }
 
-    .poster {
+    .movie-poster {
         width: 100%;
-        height: auto;
-        border-radius: 6px;
+        height: 320px;
         object-fit: cover;
     }
 
-    /* Recent Activity Cards */
-    .feed-card {
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
+    .movie-info {
         padding: 15px;
-        background-color: #f8f9fa;
-        color: #171616;
-        margin-bottom: 15px;
-        text-align: left;
     }
 
-        .feed-card p {
-            color: #171616;
-        }
-
-    .feed-comment {
-        color: #171616;
-        font-style: italic;
-        margin-top: 6px;
-        margin-bottom: 6px;
+    .movie-title {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
     }
-    .card-link {
+
+    .movie-rating {
+        color: #ffc107;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .movie-link {
         text-decoration: none;
         color: inherit;
     }
-    .movie-title-link {
-        color: #171616;
-        text-decoration: underline;
+
+        .movie-link:hover {
+            color: inherit;
+        }
+
+    .feed-card {
+        background-color: #222;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 15px;
+        color: white;
+    }
+
+    .feed-comment {
+        color: #ccc;
+        font-style: italic;
+        margin-top: 10px;
+    }
+
+    .section-title {
+        color: white;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .home-divider {
+        border-top: 1px solid #444;
+        margin: 35px 0;
     }
 </style>
 
-<h1 class="text-center">&#127916; MOVIE SOCIAL</h1>
-<p class="text-center">
-    Welcome back @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)! Discover what people are watching.
-</p>
+<div class="home-container">
 
-<hr />
+    <h1 class="text-center mb-3">🎬 MOVIE SOCIAL</h1>
 
-<!-- 🔥 Trending Movies Section -->
-<h3 class="text-center">🔥 Trending Movies</h3>
-<div class="movie-grid">
-    @{
-        var trendingList = Model.TrendingMovies;
-        var tIndex = 0;
-        if (trendingList != null && trendingList.Any())
+    <p class="text-center text-light">
+        Welcome back @((appUser?.FirstName != null) ? appUser.FirstName : User.Identity?.Name)!
+        Discover what people are watching.
+    </p>
+
+    <hr class="home-divider" />
+
+    <!-- Trending Movies -->
+    <h3 class="section-title">🔥 Trending Movies</h3>
+
+    <div class="row">
+        @if (Model.TrendingMovies != null && Model.TrendingMovies.Any())
         {
-            while (tIndex < trendingList.Count)
+            foreach (var movie in Model.TrendingMovies)
             {
-                var movie = trendingList[tIndex];
-                <div class="movie-card">
-                <a asp-page="/ReviewPages/Details" asp-route-movieId="@movie.Id" class="card-link">
-                    <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
-                    <h2>@movie.Title</h2>
-                    </a>
-                    <p>⭐ @movie.Rating</p>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+
+                        <a asp-page="/ReviewPages/Index"
+                           asp-route-movieId="@movie.Id"
+                           class="movie-link">
+
+                            @if (!string.IsNullOrEmpty(movie.Poster))
+                            {
+                                <img src="@movie.Poster"
+                                     class="movie-poster"
+                                     alt="@movie.Title"
+                                     onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                            }
+                            else
+                            {
+                                <div class="movie-poster d-flex align-items-center justify-content-center bg-secondary">
+                                    No Poster Available
+                                </div>
+                            }
+
+                            <div class="movie-info">
+                                <div class="movie-title">@movie.Title</div>
+
+                                <div class="movie-rating">
+                                    ⭐ @movie.Rating.ToString("0.0") / 5
+                                </div>
+                            </div>
+
+                        </a>
+
+                    </div>
                 </div>
-                tIndex++;
             }
         }
         else
         {
-            <p>No trending movies available.</p>
+            <p class="text-center text-light">No trending movies available.</p>
         }
-    }
-</div>
+    </div>
 
-<hr />
+    <hr class="home-divider" />
 
-<!-- 📰 Recent Activity Section -->
-<h3 class="text-center">📰 Recent Activity</h3>
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        @{
-            var activityList = Model.RecentActivity;
-            var fIndex = 0;
-            if (activityList != null && activityList.Any())
+    <!-- Recent Activity -->
+    <h3 class="section-title">📰 Recent Activity</h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            @if (Model.RecentActivity != null && Model.RecentActivity.Any())
             {
-                while (fIndex < activityList.Count)
+                foreach (var activity in Model.RecentActivity)
                 {
-                    var activity = activityList[fIndex];
                     <div class="feed-card">
+
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <strong>@activity.UserName</strong> reviewed <strong>@activity.MovieTitle</strong>
-                                <span class="badge bg-secondary ms-2">@activity.UserReviewCount reviews</span>
+                                <strong>@activity.UserName</strong>
+                                reviewed
+                                <strong>@activity.MovieTitle</strong>
+
+                                <span class="badge bg-secondary ms-2">
+                                    @activity.UserReviewCount reviews
+                                </span>
                             </div>
-                            <small class="text-muted">@activity.Timestamp.ToShortDateString()</small>
+
+                            <small class="text-light">
+                                @activity.Timestamp.ToShortDateString()
+                            </small>
                         </div>
-                        <div class="my-1">
-                            @{
-                                var r = 0;
-                                while (r < activity.Rating)
-                                {
-                                    <span>⭐</span>
-                                    r++;
-                                }
+
+                        <div class="mt-2">
+                            @for (int i = 0; i < activity.Rating; i++)
+                            {
+                                <span>⭐</span>
                             }
                         </div>
-                        <p class="feed-comment">"@activity.Comment"</p>
+
+                        <p class="feed-comment">
+                            "@activity.Comment"
+                        </p>
+
                     </div>
-                    fIndex++;
                 }
             }
             else
             {
-                <p class="text-center text-muted">No recent activity found in database.</p>
+                <p class="text-center text-light">
+                    No recent activity found.
+                </p>
             }
-        }
+
+        </div>
     </div>
-</div>
 
-<hr />
+    <hr class="home-divider" />
 
-<!-- ⭐ Top Rated Movies Section -->
-<h3 class="text-center">⭐ Top Rated Movies</h3>
-<div class="movie-grid">
-    @{
-        var topList = Model.TopRatedMovies;
-        var trIndex = 0;
-        if (topList != null && topList.Any())
+    <!-- Top Rated Movies -->
+    <h3 class="section-title">⭐ Top Rated Movies</h3>
+
+    <div class="row">
+        @if (Model.TopRatedMovies != null && Model.TopRatedMovies.Any())
         {
-            while (trIndex < topList.Count)
+            foreach (var movie in Model.TopRatedMovies)
             {
-                var movie = topList[trIndex];
-                <div class="movie-card">
-                <a asp-page="/ReviewPages/Details" asp-route-movieId="@movie.Id" class="card-link">
-                    <img src="@movie.Poster" class="poster" alt="@movie.Title poster" onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
-                    <h2>@movie.Title</h2>
-                </a>
-                    <p>⭐ @movie.Rating</p>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+
+                        <a asp-page="/ReviewPages/Index"
+                           asp-route-movieId="@movie.Id"
+                           class="movie-link">
+
+                            @if (!string.IsNullOrEmpty(movie.Poster))
+                            {
+                                <img src="@movie.Poster"
+                                     class="movie-poster"
+                                     alt="@movie.Title"
+                                     onerror="this.onerror=null; this.src='/images/placeholder.jpg';" />
+                            }
+                            else
+                            {
+                                <div class="movie-poster d-flex align-items-center justify-content-center bg-secondary">
+                                    No Poster Available
+                                </div>
+                            }
+
+                            <div class="movie-info">
+                                <div class="movie-title">@movie.Title</div>
+
+                                <div class="movie-rating">
+                                    ⭐ @movie.Rating.ToString("0.0") / 5
+                                </div>
+                            </div>
+
+                        </a>
+
+                    </div>
                 </div>
-                trIndex++;
             }
         }
         else
         {
-            <p>No top-rated movies available.</p>
+            <p class="text-center text-light">
+                No top-rated movies available.
+            </p>
         }
-    }
+    </div>
+
 </div>
